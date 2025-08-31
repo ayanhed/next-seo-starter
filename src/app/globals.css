@@ -23,24 +23,6 @@
   --font-sans: var(--font-inter);
 }
 
-/* Light theme overrides */
-[data-theme="light"] {
-  --color-brand: #ad46ff;
-  --color-bg: #eaeaea;
-  --color-surface: #ececec;
-  --color-card: #f4f0ff;
-  --color-foreground: #111827;
-  --color-muted-foreground: #6b7280;
-  --color-border: #00000014;
-  --color-ring: var(--color-brand);
-  --color-input: #ffffff;
-  --color-primary: var(--color-brand);
-  --color-primary-foreground: #ffffff;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-destructive: #ef4444;
-}
-
 @layer base {
   html {
     background-color: var(--color-bg);
@@ -67,12 +49,5 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gray-500);
-  }
-}
-
-@layer components {
-  /* Prevent initial flash before JS mounts */
-  .staggered-layout[data-ssr="init"] > * {
-    opacity: 0;
   }
 }
