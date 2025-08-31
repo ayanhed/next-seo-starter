@@ -1,7 +1,5 @@
-import ThemeColorMeta from "@/components/ThemeColorMeta";
 import { appConfig } from "@/config/app";
 import type { Metadata, Viewport } from "next";
-import { ThemeProvider } from "next-themes";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
@@ -64,16 +62,9 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${inter.variable} antialiased bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-surface)] to-[var(--color-bg)]`}
       >
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="light"
-          themes={["dark", "light"]}
-        >
-          <ThemeColorMeta />
-          <main className="container md:mx-auto min-h-screen flex flex-col">
-            <Providers>{children}</Providers>
-          </main>
-        </ThemeProvider>
+        <main className="container md:mx-auto min-h-screen flex flex-col">
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );
