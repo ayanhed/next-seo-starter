@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+description: Tailwind usage and semantic theme tokens for styling
+---
+
+### Tailwind and Theme Tokens
+
+- Use Tailwind classes and the semantic CSS variables from [`globals.css`](mdc:src/app/globals.css). Avoid custom CSS unless a utility cannot express the style.
+- Prefer semantic variables for colors and rings:
+  - Background: `bg-[var(--color-bg)]`
+  - Surface/Card: `bg-[var(--color-surface)]` / `bg-[var(--color-card)]`
+  - Foreground: `text-[var(--color-foreground)]`
+  - Muted text: `text-[var(--color-muted-foreground)]`
+  - Borders: `border-[var(--color-border)]`
+  - Primary: `text-[var(--color-primary)]` / `bg-[var(--color-primary)]`
+  - Focus ring: `ring-[var(--color-ring)]`
+- Gradients can reference variables: `from-[var(--color-bg)] via-[var(--color-surface)] to-[var(--color-bg)]`.
+
+### Light/Dark Themes
+
+- Theme is controlled by `[data-theme="light"|"dark"]` on a parent element.
+- Use the custom variants defined in CSS:
+  - `dark:` maps to `[data-theme=dark]` context
+  - `light:` maps to `[data-theme=light]` context
+- Prefer semantic tokens instead of raw color hex values.
+
+### Components
+
+- Use spacing/layout utilities instead of bespoke CSS.
+- When a one-off style is unavoidable, prefer Tailwind arbitrary values with project tokens, e.g. `shadow-[0_1px_0_0_var(--color-border)]`.
+
+### Accessibility
+
+- Respect focus styles with `focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]`.
+- Maintain color contrast using semantic colors; avoid hard-coded low-contrast colors.

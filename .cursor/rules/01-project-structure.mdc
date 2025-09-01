@@ -1,0 +1,58 @@
+---
+alwaysApply: true
+description: High-level project structure, entry points, aliases, and SEO/PWA files
+---
+
+### Project Structure Guide
+
+- Main app directory: [`src/app`](mdc:src/app)
+
+  - Global layout: [`layout.tsx`](mdc:src/app/layout.tsx)
+  - App providers: [`providers.tsx`](mdc:src/app/providers.tsx)
+  - Global styles: [`globals.css`](mdc:src/app/globals.css)
+  - Root page: [`page.tsx`](mdc:src/app/page.tsx)
+  - Offline page: [`offline/page.tsx`](mdc:src/app/offline/page.tsx)
+  - PWA service worker entry: [`sw.ts`](mdc:src/app/sw.ts)
+  - Metadata routes: [`manifest.ts`](mdc:src/app/manifest.ts), [`robots.ts`](mdc:src/app/robots.ts), [`sitemap.ts`](mdc:src/app/sitemap.ts)
+
+- UI components: [`src/components/ui`](mdc:src/components/ui)
+  - Barrel exports: [`index.ts`](mdc:src/components/ui/index.ts)
+  - Import UI like:
+
+```ts
+import { Button, Card } from "@/components/ui";
+```
+
+- SEO/Structured Data helpers: [`src/lib/jsonld.ts`](mdc:src/lib/jsonld.ts)
+
+  - Use with the JSON-LD component: [`src/components/JsonLd.tsx`](mdc:src/components/JsonLd.tsx)
+
+- App configuration: [`src/config/app.ts`](mdc:src/config/app.ts)
+
+  - Use `getCanonicalUrl(path)` for absolute URLs
+  - Read `appConfig` for app name, description, base URL, etc.
+
+- Public assets: [`public`](mdc:public)
+  - Default Open Graph image: [`opengraph-image.jpg`](mdc:src/app/opengraph-image.jpg)
+  - PWA worker (built): [`public/sw.js`](mdc:public/sw.js)
+
+### Path Aliases and Imports
+
+- TypeScript path alias `@/*` is configured in [`tsconfig.json`](mdc:tsconfig.json)
+
+```json
+{
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] }
+  }
+}
+```
+
+- Prefer `@/…` imports over relative `../../…` paths.
+- Keep import order: external → alias (`@/…`) → relative.
+
+### SEO and Metadata
+
+- Use `JsonLd` with helpers from `src/lib/jsonld.ts` on pages.
+- Centralize URLs with `getCanonicalUrl` and metadata with `appConfig`.
+- Keep metadata routes (`manifest`, `robots`, `sitemap`) in sync with `appConfig`.

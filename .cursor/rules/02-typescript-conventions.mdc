@@ -1,0 +1,24 @@
+---
+globs: *.ts,*.tsx
+description: TypeScript and Next.js conventions for this project
+---
+
+### TypeScript Conventions
+
+- Prefer named exports for utilities; UI components under `src/components/ui` use default exports to support the barrel file.
+- Avoid `any` and unsafe casts. Model complex types explicitly.
+- Add explicit return types for exported functions and hooks.
+- Avoid `React.FC`. Define a `Props` interface and use `function Component(props: Props) { … }`.
+- Use type-only imports when importing types: `import type { Metadata } from "next"`.
+- Use the path alias `@/` instead of relative `../../` imports.
+- Server Components by default in `app/`. Add `"use client"` only when a component needs state, effects, or browser APIs.
+
+### File/Folder Guidance
+
+- Keep helpers in `src/lib/` and configuration in `src/config/`.
+- Co-locate small component-specific helpers next to components; move to `src/lib/` when reused.
+
+### Next Metadata
+
+- Derive metadata from `appConfig` where possible to keep a single source of truth.
+- Use `metadataBase: new URL(appConfig.app.baseUrl)` and `alternates.canonical` on top-level layout.

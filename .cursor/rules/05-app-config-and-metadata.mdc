@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+description: Source-of-truth for app metadata via appConfig and how to use it
+---
+
+### App Config
+
+- Single source of truth lives in [`src/config/app.ts`](mdc:src/config/app.ts):
+  - `appConfig.app` for name, description, keywords, base URL, locale, authors, categories
+  - `appConfig.branding` for default OG image and social handles
+  - `appConfig.theme` for colors
+  - `getCanonicalUrl(path)` for building absolute URLs
+
+### Environment
+
+- `NEXT_PUBLIC_SITE_URL` should be set without a trailing slash; it is normalized in config.
+- Fallback base URL is `http://localhost:3000` for local dev.
+
+### Layout Metadata
+
+- Top-level `src/app/layout.tsx` should use:
+  - `metadataBase: new URL(appConfig.app.baseUrl)`
+  - `alternates.canonical: appConfig.app.baseUrl`
+  - Derive `title`, `description`, and Open Graph from `appConfig`.
+
+### Metadata Routes
+
+- Robots: [`src/app/robots.ts`](mdc:src/app/robots.ts)
+
+  - Keep `sitemap` pointing to `${appConfig.app.baseUrl}/sitemap.xml`.
+
+- Sitemap: [`src/app/sitemap.ts`](mdc:src/app/sitemap.ts)
+
+  - Use `appConfig.app.baseUrl` for entries.
+
+- Manifest: [`src/app/manifest.ts`](mdc:src/app/manifest.ts)
+  - Derive names, colors, language, and categories from `appConfig`.
+
+### Client/Providers
+
+- `src/app/providers.tsx` is the place to initialize client-only instrumentation; keep it minimal and wrapper-only unless a provider is needed.

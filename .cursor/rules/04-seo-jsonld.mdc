@@ -1,0 +1,62 @@
+---
+globs: *.tsx
+description: JSON-LD and SEO patterns for pages and components
+---
+
+### JSON-LD Usage
+
+- Use the centralized `JsonLd` component and helpers in [`src/lib/jsonld.ts`](mdc:src/lib/jsonld.ts).
+- Prefer helpers over hand-rolled objects to ensure consistency and canonical URLs.
+
+#### Examples
+
+- Website schema on home page:
+
+```tsx
+import JsonLd from "@/components/JsonLd";
+import { getHomePageSchemas } from "@/lib/jsonld";
+
+export default function HomePage() {
+  return (
+    <>
+      <JsonLd data={getHomePageSchemas()} />
+      {/* ... */}
+    </>
+  );
+}
+```
+
+- WebPage schema on a route:
+
+```tsx
+import JsonLd from "@/components/JsonLd";
+import { createWebPage } from "@/lib/jsonld";
+
+export default function AboutPage() {
+  return <JsonLd data={createWebPage({ name: "About", path: "/about" })} />;
+}
+```
+
+- Breadcrumbs:
+
+```tsx
+import JsonLd from "@/components/JsonLd";
+import { createBreadcrumbList } from "@/lib/jsonld";
+
+<JsonLd
+  data={createBreadcrumbList([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: "Post" },
+  ])}
+/>;
+```
+
+### Canonical URLs
+
+- Use `getCanonicalUrl(path)` from [`src/config/app.ts`](mdc:src/config/app.ts). Do not inline absolute URLs.
+
+### Metadata
+
+- Derive `title`, `description`, `keywords`, and Open Graph from `appConfig` whenever possible.
+- Keep `robots`, `sitemap`, and `manifest` in sync with `appConfig` values.
