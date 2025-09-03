@@ -26,15 +26,13 @@ const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
 export const appConfig: AppConfig = {
   app: {
-    name: process.env.NEXT_PUBLIC_APP_NAME || "Next SEO Starter",
-    description:
-      process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
-      "A modern Next.js starter with Tailwind, SEO, PWA, Push, and PostHog.",
-    keywords: ["Next.js", "React", "TypeScript", "Tailwind", "PWA", "SEO"],
+    name: process.env.NEXT_PUBLIC_APP_NAME || "[APP_NAME]",
+    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "[APP_DESCRIPTION]",
+    keywords: ["[APP_KEYWORDS]"],
     baseUrl: envSiteUrl || "http://localhost:3000",
     locale: "en-GB",
-    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "Your Name" }],
-    categories: ["productivity", "portfolio", "business"],
+    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "[APP_AUTHOR]" }],
+    categories: ["[APP_CATEGORIES]"],
   },
   branding: {
     defaultOgImage: "/opengraph-image.jpg",
