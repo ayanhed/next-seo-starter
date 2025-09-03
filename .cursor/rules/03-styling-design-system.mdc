@@ -1,0 +1,198 @@
+# Styling and Design System
+
+## Tailwind CSS and Design Tokens
+
+### Semantic Design Tokens
+
+Use the semantic CSS variables defined in [`src/app/globals.css`](mdc:src/app/globals.css) instead of hard-coded colors:
+
+```css
+/* Available semantic tokens */
+--color-brand: #306fcb; /* primary blue */
+--color-bg: #f2f2f2; /* app background */
+--color-surface: #ffffff; /* surfaces and panels */
+--color-card: #ffffff; /* cards */
+--color-foreground: #2f2f2f; /* main text */
+--color-muted-foreground: #2f2f2f99; /* subdued text */
+--color-border: #cadaf2; /* soft blue border */
+--color-ring: var(--color-brand);
+--color-input: #e5e7eb;
+--color-primary: var(--color-brand);
+--color-primary-foreground: #ffffff;
+--color-success: #10b981;
+--color-warning: #f59e0b;
+--color-destructive: #ef4444;
+```
+
+### Usage Patterns
+
+#### Background Colors
+
+```tsx
+// ✅ Use semantic tokens
+<div className="bg-[var(--color-bg)]">App background</div>
+<div className="bg-[var(--color-surface)]">Surface background</div>
+<div className="bg-[var(--color-card)]">Card background</div>
+
+// ❌ Avoid hard-coded colors
+<div className="bg-gray-100">App background</div>
+```
+
+#### Text Colors
+
+```tsx
+// ✅ Use semantic tokens
+<p className="text-[var(--color-foreground)]">Main text</p>
+<p className="text-[var(--color-muted-foreground)]">Muted text</p>
+<p className="text-[var(--color-primary)]">Primary text</p>
+
+// ❌ Avoid hard-coded colors
+<p className="text-gray-900">Main text</p>
+```
+
+#### Borders and Focus Rings
+
+```tsx
+// ✅ Use semantic tokens
+<div className="border-[var(--color-border)]">Border</div>
+<button className="focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]">
+  Focusable element
+</button>
+
+// ❌ Avoid hard-coded colors
+<div className="border-gray-200">Border</div>
+```
+
+#### Gradients
+
+```tsx
+// ✅ Reference design tokens in gradients
+<div className="bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-surface)] to-[var(--color-bg)]">
+  Gradient background
+</div>
+```
+
+## Theme System
+
+### Light/Dark Theme Support
+
+- **Theme is controlled** by `[data-theme="light"|"dark"]` on parent elements
+- **Use custom variants** defined in CSS:
+  - `dark:` maps to `[data-theme=dark]` context
+  - `light:` maps to `[data-theme=light]` context
+
+```tsx
+// ✅ Theme-aware styling
+<div className="bg-[var(--color-bg)] dark:bg-[var(--color-bg-dark)]">
+  Theme-aware background
+</div>
+
+// ❌ Avoid theme-specific hard-coded values
+<div className="bg-white dark:bg-black">
+  Hard-coded theme colors
+</div>
+```
+
+### Component Styling Patterns
+
+#### Spacing and Layout
+
+- **Use Tailwind spacing utilities** instead of custom CSS
+- **Prefer layout utilities** (`flex`, `grid`, `stack`) over custom positioning
+
+```tsx
+// ✅ Use Tailwind utilities
+<div className="flex flex-col gap-4 p-6">
+  <div className="space-y-2">
+    <h2 className="text-xl font-semibold">Title</h2>
+    <p className="text-sm text-[var(--color-muted-foreground)]">Description</p>
+  </div>
+</div>
+
+// ❌ Avoid custom CSS when utilities exist
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '24px' }}>
+```
+
+#### Arbitrary Values with Tokens
+
+When one-off styles are unavoidable, use Tailwind arbitrary values with project tokens:
+
+```tsx
+// ✅ Arbitrary values with semantic tokens
+<div className="shadow-[0_1px_0_0_var(--color-border)]">
+  Custom shadow with design token
+</div>
+
+// ❌ Hard-coded arbitrary values
+<div className="shadow-[0_1px_0_0_#cadaf2]">
+  Hard-coded color value
+</div>
+```
+
+## Accessibility
+
+### Focus Management
+
+- **Respect focus styles** with semantic ring colors
+- **Maintain color contrast** using semantic colors
+
+```tsx
+// ✅ Accessible focus styles
+<button className="focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2">
+  Accessible button
+</button>
+
+// ❌ Missing or hard-coded focus styles
+<button className="focus:outline-none">
+  Inaccessible button
+</button>
+```
+
+### Color Contrast
+
+- **Use semantic colors** to maintain proper contrast ratios
+- **Avoid low-contrast combinations** with hard-coded colors
+
+## Component-Specific Styling
+
+### UI Components
+
+- **Use consistent patterns** across all UI components in [`src/components/ui`](mdc:src/components/ui)
+- **Apply semantic tokens** for colors, spacing, and typography
+- **Maintain consistent focus states** across interactive elements
+
+### Marketing Components
+
+- **Use brand colors** from `appConfig.theme` for marketing-specific styling
+- **Apply consistent spacing** and typography patterns
+
+### Responsive Design
+
+- **Use Tailwind breakpoints** consistently: `sm:`, `md:`, `lg:`, `xl:`
+- **Mobile-first approach** - design for mobile, enhance for larger screens
+
+```tsx
+// ✅ Responsive design pattern
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 md:p-6 lg:p-8">
+  <div className="text-sm md:text-base lg:text-lg">Responsive content</div>
+</div>
+```
+
+## Custom CSS Guidelines
+
+### When to Use Custom CSS
+
+- **Avoid custom CSS** unless a utility cannot express the style
+- **Use Tailwind arbitrary values** for one-off styles
+- **Create reusable utilities** in `globals.css` for repeated patterns
+
+### CSS Organization
+
+- **Keep custom CSS minimal** in `globals.css`
+- **Use `@layer` directives** to organize CSS properly
+- **Document custom utilities** with comments
+  description:
+  globs:
+  alwaysApply: true
+
+---

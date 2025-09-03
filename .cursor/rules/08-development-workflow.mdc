@@ -1,0 +1,275 @@
+# Development Workflow
+
+## Project Scripts
+
+### Available Commands
+
+Use the scripts defined in [`package.json`](mdc:package.json) for development tasks:
+
+```bash
+# Development
+npm run dev          # Start development server with HTTPS
+npm run build        # Build for production (includes Prisma generate)
+npm run start        # Start production server
+
+# Code Quality
+npm run lint         # Run ESLint
+npm run typecheck    # TypeScript type checking
+npm run check        # TypeScript + ESLint check
+
+# Database
+npm run db:generate  # Generate Prisma client
+npm run db:push      # Push schema changes to database
+npm run db:migrate   # Create and apply migrations
+npm run db:studio    # Open Prisma Studio
+npm run db:reset     # Reset database and apply migrations
+```
+
+### Development Server
+
+- **Use HTTPS in development** with `--experimental-https` flag
+- **Hot reload enabled** for fast development
+- **Environment variables** loaded from `.env.local`
+
+## Environment Setup
+
+### Required Environment Variables
+
+Create a `.env.local` file with the following variables:
+
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/regchat"
+
+# Authentication
+AUTH_SECRET="your-secret-key-here"
+AUTH_URL="http://localhost:3000"
+
+# App Configuration
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+NEXT_PUBLIC_APP_NAME="RegChat"
+NEXT_PUBLIC_APP_DESCRIPTION="Post a short, friendly message to any UK number plate"
+NEXT_PUBLIC_APP_AUTHOR="Your Name"
+
+# PostHog Analytics (optional)
+NEXT_PUBLIC_POSTHOG_KEY="your-posthog-key"
+POSTHOG_SECRET="your-posthog-secret"
+```
+
+### Environment File Structure
+
+```
+.env.local          # Local development (gitignored)
+.env.example        # Example environment file (committed)
+.env.production     # Production environment
+```
+
+## Database Development
+
+### Local Database Setup
+
+1. **Install PostgreSQL** locally or use Docker
+2. **Create database** for development
+3. **Set DATABASE_URL** in `.env.local`
+4. **Run migrations**: `npm run db:migrate`
+
+### Database Workflow
+
+```bash
+# 1. Make schema changes in prisma/schema.prisma
+# 2. Generate migration
+npm run db:migrate
+
+# 3. Apply migration to database
+npm run db:push
+
+# 4. Generate Prisma client
+npm run db:generate
+```
+
+### Prisma Studio
+
+- **Use Prisma Studio** for database inspection: `npm run db:studio`
+- **View and edit data** through the web interface
+- **Test queries** and relationships
+
+## Code Quality
+
+### TypeScript Configuration
+
+- **Strict mode enabled** in [`tsconfig.json`](mdc:tsconfig.json)
+- **Path aliases configured** for clean imports
+- **Type checking** with `npm run typecheck`
+
+### ESLint Configuration
+
+- **Next.js ESLint config** in [`eslint.config.mjs`](mdc:eslint.config.mjs)
+- **Custom rules** for project-specific patterns
+- **Run linting** with `npm run lint`
+
+### Pre-commit Checks
+
+```bash
+# Run all checks before committing
+npm run check
+
+# This runs:
+# - TypeScript type checking
+# - ESLint linting
+```
+
+## Development Best Practices
+
+### File Organization
+
+- **Follow established patterns** from project structure
+- **Use appropriate directories** for different file types
+- **Keep related files together** when possible
+
+### Component Development
+
+- **Start with server components** by default
+- **Add "use client"** only when needed
+- **Use semantic design tokens** for styling
+- **Follow TypeScript conventions** for props
+
+### API Development
+
+- **Use proper HTTP status codes**
+- **Implement error handling** for all endpoints
+- **Validate input data** before processing
+- **Return consistent response formats**
+
+```ts
+// API route pattern
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+
+    // Validate input
+    const validatedData = schema.parse(body);
+
+    // Process request
+    const result = await processData(validatedData);
+
+    return Response.json({ success: true, data: result });
+  } catch (error) {
+    console.error("API Error:", error);
+    return Response.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+```
+
+## Testing Strategy
+
+### Testing Setup
+
+- **Unit tests** for utility functions and components
+- **Integration tests** for API routes and database operations
+- **E2E tests** for critical user flows
+
+### Test Patterns
+
+```tsx
+// Component test pattern
+import { render, screen } from "@testing-library/react";
+import { Button } from "@/components/ui";
+
+describe("Button", () => {
+  it("renders with correct text", () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByText("Click me")).toBeInTheDocument();
+  });
+});
+```
+
+## Performance Optimization
+
+### Development Performance
+
+- **Use React DevTools** for component profiling
+- **Monitor bundle size** with Next.js analytics
+- **Optimize images** with Next.js Image component
+
+### Production Optimization
+
+- **Enable compression** and caching
+- **Optimize fonts** with next/font
+- **Use dynamic imports** for code splitting
+
+## Debugging
+
+### Development Tools
+
+- **React DevTools** for component debugging
+- **Next.js DevTools** for performance analysis
+- **Prisma Studio** for database debugging
+
+### Logging
+
+- **Use console.log** for development debugging
+- **Implement proper logging** for production
+- **Monitor errors** with error tracking services
+
+## Deployment
+
+### Build Process
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Generate Prisma client
+npm run db:generate
+
+# 3. Build application
+npm run build
+
+# 4. Start production server
+npm run start
+```
+
+### Environment Variables
+
+- **Set production environment variables** on hosting platform
+- **Use different values** for development and production
+- **Keep secrets secure** and never commit them
+
+### Database Deployment
+
+- **Run migrations** on production database
+- **Backup database** before major changes
+- **Monitor database performance** in production
+
+## Git Workflow
+
+### Branch Strategy
+
+- **Main branch** for production-ready code
+- **Feature branches** for new development
+- **Pull requests** for code review
+
+### Commit Messages
+
+- **Use conventional commits** format
+- **Be descriptive** about changes
+- **Reference issues** when applicable
+
+```bash
+# Good commit messages
+feat: add user authentication
+fix: resolve database connection issue
+docs: update README with setup instructions
+```
+
+### Code Review
+
+- **Review all changes** before merging
+- **Check for security issues**
+- **Verify functionality** and edge cases
+
+description:
+globs:
+alwaysApply: true
+
+---

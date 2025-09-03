@@ -1,16 +1,16 @@
----
-globs: *.tsx
-description: JSON-LD and SEO patterns for pages and components
----
+# SEO and JSON-LD Patterns
 
-### JSON-LD Usage
+## JSON-LD Usage
 
-- Use the centralized `JsonLd` component and helpers in [`src/lib/jsonld.ts`](mdc:src/lib/jsonld.ts).
-- Prefer helpers over hand-rolled objects to ensure consistency and canonical URLs.
+### Centralized JSON-LD System
 
-#### Examples
+- **Use the centralized `JsonLd` component** and helpers in [`src/lib/jsonld.ts`](mdc:src/lib/jsonld.ts)
+- **Prefer helpers over hand-rolled objects** to ensure consistency and canonical URLs
+- **Import the component**: `import JsonLd from "@/components/JsonLd"`
 
-- Website schema on home page:
+### Common JSON-LD Patterns
+
+#### Website Schema (Home Page)
 
 ```tsx
 import JsonLd from "@/components/JsonLd";
@@ -20,24 +20,35 @@ export default function HomePage() {
   return (
     <>
       <JsonLd data={getHomePageSchemas()} />
-      {/* ... */}
+      {/* Page content */}
     </>
   );
 }
 ```
 
-- WebPage schema on a route:
+#### WebPage Schema (Route Pages)
 
 ```tsx
 import JsonLd from "@/components/JsonLd";
 import { createWebPage } from "@/lib/jsonld";
 
 export default function AboutPage() {
-  return <JsonLd data={createWebPage({ name: "About", path: "/about" })} />;
+  return (
+    <>
+      <JsonLd
+        data={createWebPage({
+          name: "About",
+          path: "/about",
+          description: "Learn about our service",
+        })}
+      />
+      {/* Page content */}
+    </>
+  );
 }
 ```
 
-- Breadcrumbs:
+#### Breadcrumbs
 
 ```tsx
 import JsonLd from "@/components/JsonLd";
@@ -47,16 +58,195 @@ import { createBreadcrumbList } from "@/lib/jsonld";
   data={createBreadcrumbList([
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },
-    { name: "Post" },
+    { name: "Post Title" },
   ])}
 />;
 ```
 
-### Canonical URLs
+#### Organization Schema
 
-- Use `getCanonicalUrl(path)` from [`src/config/app.ts`](mdc:src/config/app.ts). Do not inline absolute URLs.
+```tsx
+import JsonLd from "@/components/JsonLd";
+import { createOrganization } from "@/lib/jsonld";
 
-### Metadata
+<JsonLd
+  data={createOrganization({
+    name: appConfig.app.name,
+    url: appConfig.app.baseUrl,
+    logo: `${appConfig.app.baseUrl}/logo.png`,
+    sameAs: [
+      appConfig.branding.social?.twitter,
+      appConfig.branding.social?.github,
+    ].filter(Boolean),
+  })}
+/>;
+```
+
+## Canonical URLs
+
+### URL Management
+
+- **Use `getCanonicalUrl(path)`** from [`src/config/app.ts`](mdc:src/config/app.ts) for all absolute URLs
+- **Do not inline absolute URLs** - always use the helper function
+- **Normalize paths** - the helper handles leading/trailing slashes
+
+```tsx
+// ✅ Use canonical URL helper
+import { getCanonicalUrl } from "@/config/app";
+
+const canonicalUrl = getCanonicalUrl("/about");
+const apiUrl = getCanonicalUrl("/api/data");
+
+// ❌ Avoid hard-coded URLs
+const canonicalUrl = "https://regchat.app/about";
+```
+
+### Metadata Integration
+
+- **Set canonical URLs** in page metadata using the helper
+- **Keep URLs consistent** across JSON-LD, Open Graph, and metadata
+
+```tsx
+export const metadata: Metadata = {
+  alternates: {
+    canonical: getCanonicalUrl("/about"),
+  },
+  openGraph: {
+    url: getCanonicalUrl("/about"),
+  },
+};
+```
+
+## Metadata Patterns
+
+### Page Metadata
+
+- **Derive metadata from `appConfig`** whenever possible for single source of truth
+- **Use consistent patterns** across all pages
+- **Include essential metadata** for SEO and social sharing
+
+```tsx
+import { appConfig, getCanonicalUrl } from "@/config/app";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: `${appConfig.app.name} — ${pageTitle}`,
+  description: pageDescription || appConfig.app.description,
+  keywords: [...appConfig.app.keywords, ...pageKeywords],
+  authors: appConfig.app.authors,
+  alternates: {
+    canonical: getCanonicalUrl(path),
+  },
+  openGraph: {
+    title: `${appConfig.app.name} — ${pageTitle}`,
+    description: pageDescription || appConfig.app.description,
+    url: getCanonicalUrl(path),
+    siteName: appConfig.app.name,
+    images: [
+      {
+        url: getCanonicalUrl(appConfig.branding.defaultOgImage),
+        width: 1200,
+        height: 630,
+        alt: pageTitle,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${appConfig.app.name} — ${pageTitle}`,
+    description: pageDescription || appConfig.app.description,
+    images: [getCanonicalUrl(appConfig.branding.defaultOgImage)],
+  },
+};
+```
+
+### Dynamic Metadata
+
+- **Use generateMetadata function** for dynamic pages
+- **Handle loading and error states** gracefully
+- **Validate dynamic data** before using in metadata
+
+```tsx
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  try {
+    const post = await getPost(params.slug);
+
+    return {
+      title: `${appConfig.app.name} — ${post.title}`,
+      description: post.excerpt,
+      alternates: {
+        canonical: getCanonicalUrl(`/blog/${params.slug}`),
+      },
+      openGraph: {
+        title: post.title,
+        description: post.excerpt,
+        url: getCanonicalUrl(`/blog/${params.slug}`),
+      },
+    };
+  } catch (error) {
+    return {
+      title: `${appConfig.app.name} — Post Not Found`,
+      description: "The requested post could not be found.",
+    };
+  }
+}
+```
+
+## Metadata Routes
+
+### Keep Routes in Sync
+
+- **Robots**: [`src/app/robots.ts`](mdc:src/app/robots.ts)
+
+  - Keep `sitemap` pointing to `${appConfig.app.baseUrl}/sitemap.xml`
+  - Use `appConfig` for user-agent rules
+
+- **Sitemap**: [`src/app/sitemap.ts`](mdc:src/app/sitemap.ts)
+
+  - Use `appConfig.app.baseUrl` for all entries
+  - Include all important pages and routes
+
+- **Manifest**: [`src/app/manifest.ts`](mdc:src/app/manifest.ts)
+  - Derive names, colors, language, and categories from `appConfig`
+  - Keep PWA configuration consistent
+
+## Social Media Optimization
+
+### Open Graph Tags
+
+- **Use consistent Open Graph patterns** across all pages
+- **Include proper image dimensions** (1200x630 recommended)
+- **Set appropriate content types** (`website`, `article`, etc.)
+
+### Twitter Cards
+
+- **Use `summary_large_image`** for rich previews
+- **Include Twitter-specific metadata** when relevant
+- **Test with Twitter Card Validator**
+
+## Performance and SEO
+
+### Image Optimization
+
+- **Use Next.js Image component** for optimized images
+- **Include proper alt text** for accessibility and SEO
+- **Optimize image formats** (WebP, AVIF) when possible
+
+### Structured Data Validation
+
+- **Test JSON-LD with Google's Rich Results Test**
+- **Validate schema markup** before deployment
+- **Monitor structured data** in Google Search Console
+
+### Core Web Vitals
+
+- **Optimize for LCP, FID, and CLS**
+- **Use semantic HTML** for better accessibility
+- **Implement proper loading strategies**
 
 - Derive `title`, `description`, `keywords`, and Open Graph from `appConfig` whenever possible.
 - Keep `robots`, `sitemap`, and `manifest` in sync with `appConfig` values.
