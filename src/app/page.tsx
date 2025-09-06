@@ -1,27 +1,66 @@
-"use client";
-
-import { Heading, Text, Link, Button } from "@/components/ui";
-import { authClient } from "@/lib/auth-client";
+import Navigation from "@/components/marketing/Navigation";
+import Hero from "@/components/marketing/Hero";
+import Partners from "@/components/marketing/Partners";
+import Benefits from "@/components/marketing/Benefits";
+import { Steps } from "@/components/marketing/Steps";
+import Pricing from "@/components/marketing/Pricing";
+import Testimonials from "@/components/marketing/Testimonials";
+import { FAQ } from "@/components/marketing/FAQ";
+import FinalCTA from "@/components/marketing/FinalCTA";
+import Footer from "@/components/marketing/Footer";
 
 export default function Home() {
-  const { data } = authClient.useSession();
+  // Default steps for the Steps component
+  const defaultSteps = [
+    {
+      title: "Sign Up",
+      description:
+        "Create your account in seconds with just your email address.",
+      icon: "📝",
+    },
+    {
+      title: "Configure",
+      description: "Set up your workspace and customize your preferences.",
+      icon: "⚙️",
+    },
+    {
+      title: "Launch",
+      description: "Start using our platform and see immediate results.",
+      icon: "🚀",
+    },
+  ];
+
   return (
-    <div className="text-center grow flex h-full flex-col items-center justify-center">
-      {/* Some demo content */}
-      <Heading level={1}>NextJS SEO Starter</Heading>
-      <Text>
-        This is a demo of the homepage. Click the button below to try logging
-        in.
-      </Text>
-      {data?.session ? (
-        <Button variant="primary" onClick={() => authClient.signOut()}>
-          Sign Out
-        </Button>
-      ) : (
-        <Link variant="button" href="/login">
-          Login
-        </Link>
-      )}
+    <div className="min-h-screen">
+      {/* Navigation - Sticky at top */}
+      <Navigation />
+
+      {/* Hero Section - Main value proposition */}
+      <Hero />
+
+      {/* Partners Section - Social proof */}
+      <Partners />
+
+      {/* Benefits Section - Focus on how it helps users */}
+      <Benefits />
+
+      {/* How it works Section - 3 simple steps */}
+      <Steps steps={defaultSteps} />
+
+      {/* Pricing Section - Clear plans with CTAs */}
+      <Pricing />
+
+      {/* Testimonials Section - Social proof next to pricing */}
+      <Testimonials />
+
+      {/* FAQ Section - Address major concerns */}
+      <FAQ items={[]} />
+
+      {/* Final CTA Section - Prominent call to action */}
+      <FinalCTA />
+
+      {/* Footer - Links, legal, newsletter */}
+      <Footer />
     </div>
   );
 }

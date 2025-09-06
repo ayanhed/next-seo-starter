@@ -62,7 +62,7 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} ${inter.variable} antialiased bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-surface)] to-[var(--color-bg)]`}
       >
-        <main className="container md:mx-auto min-h-screen flex flex-col">
+        <main className="min-h-screen flex flex-col">
           <Providers>{children}</Providers>
         </main>
       </body>
