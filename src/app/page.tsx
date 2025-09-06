@@ -32,9 +32,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Navigation - Sticky at top */}
-      <Navigation />
-
       {/* Hero Section - Main value proposition */}
       <Hero />
 
@@ -58,9 +55,6 @@ export default function Home() {
 
       {/* Final CTA Section - Prominent call to action */}
       <FinalCTA />
-
-      {/* Footer - Links, legal, newsletter */}
-      <Footer />
     </div>
   );
 }

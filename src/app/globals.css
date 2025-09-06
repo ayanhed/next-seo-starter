@@ -51,3 +51,7 @@
     background: var(--color-gray-500);
   }
 }
+
+@utility container-full {
+  padding-inline: 1rem;
+}
