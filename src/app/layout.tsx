@@ -1,10 +1,9 @@
 import { appConfig } from "@/config/app";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
 import Providers from "./providers";
-import Navigation from "@/components/ui/Navigation";
-import Footer from "../components/marketing/Footer";
+
+import "./globals.css";
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
@@ -62,11 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${geistMono.variable} ${inter.variable} antialiased`}>
-        <Navigation />
-        <main className="container-full flex flex-col">
-          <Providers>{children}</Providers>
-        </main>
-        <Footer />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
