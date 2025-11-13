@@ -10,7 +10,6 @@ interface CallToActionProps {
   description?: string;
   buttonText: string;
   buttonHref: string;
-  className?: string;
 }
 
 const CallToAction: React.FC<CallToActionProps> = ({
@@ -18,10 +17,9 @@ const CallToAction: React.FC<CallToActionProps> = ({
   description,
   buttonText,
   buttonHref,
-  className,
 }) => {
   return (
-    <Section className={className}>
+    <Section className="bg-surface/50 border border-border rounded-2xl p-6 space-y-4">
       <Heading level={4}>{title}</Heading>
       {description && <Text variant="muted">{description}</Text>}
       <Button icon={ArrowRight} iconPosition="right">

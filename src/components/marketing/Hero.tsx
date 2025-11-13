@@ -93,10 +93,7 @@ export default function Hero({
                 {subtitle}
               </Text>
             )}
-            <Heading
-              level={1}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
-            >
+            <Heading level={1} lead={3}>
               {title}
             </Heading>
             <Text
@@ -171,7 +168,7 @@ export default function Hero({
                     {[1, 2, 3, 4, 5, 6].map((fileNumber) => (
                       <div
                         key={fileNumber}
-                        className="w-8 h-8 rounded-full border-2 border-[var(--color-surface)] bg-[var(--color-card)] flex items-center justify-center text-xs font-semibold"
+                        className="w-8 h-8 rounded-full border-2 border-surface bg-card flex items-center justify-center text-xs font-semibold"
                       >
                         {fileNumber}
                       </div>

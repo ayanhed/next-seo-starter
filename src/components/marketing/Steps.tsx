@@ -25,7 +25,7 @@ export function Steps({ steps }: { steps: Step[] }) {
             <div key={index} className="flex gap-6 relative">
               {/* Step number */}
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-white text-lg font-bold relative z-10">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-lg font-bold relative z-10">
                   {index + 1}
                 </div>
               </div>
@@ -33,7 +33,7 @@ export function Steps({ steps }: { steps: Step[] }) {
               {/* Vertical connector line */}
               {index < steps.length - 1 && (
                 <div
-                  className="absolute left-[23px] top-12 w-0.5 bg-[var(--color-border)] z-0"
+                  className="absolute left-[23px] top-12 w-0.5 bg-border z-0"
                   style={{ height: "calc(100% + 2rem)" }}
                 />
               )}
@@ -62,7 +62,7 @@ export function Steps({ steps }: { steps: Step[] }) {
             {steps.map((step, index) => (
               <div key={index} className="text-center relative">
                 {/* Step number */}
-                <div className="w-16 h-16 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6 relative z-10">
+                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold mx-auto mb-6 relative z-10">
                   {index + 1}
                 </div>
 
@@ -80,9 +80,9 @@ export function Steps({ steps }: { steps: Step[] }) {
           </div>
 
           {/* Horizontal connector lines for desktop */}
-          <div className="absolute top-8 left-0 right-0 h-0.5 bg-[var(--color-border)] z-0">
+          <div className="absolute top-8 left-0 right-0 h-0.5 bg-border z-0">
             <div className="max-w-4xl mx-auto relative h-full">
-              <div className="absolute left-[16.67%] right-[16.67%] h-full bg-[var(--color-border)]"></div>
+              <div className="absolute left-[16.67%] right-[16.67%] h-full bg-border"></div>
             </div>
           </div>
         </div>

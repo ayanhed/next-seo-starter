@@ -24,37 +24,37 @@ const Alert: React.FC<AlertProps> = ({
   const variants = {
     default: {
       container:
-        "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-primary)]/5 border-[var(--color-primary)]/20",
-      text: "text-[var(--color-foreground)]",
-      icon: "text-[var(--color-primary)]",
+        "bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20",
+      text: "text-foreground",
+      icon: "text-primary",
       iconComponent: null,
     },
     success: {
       container:
-        "bg-gradient-to-r from-[var(--color-success)]/10 to-[var(--color-success)]/5 border-[var(--color-success)]/20",
-      text: "text-[var(--color-foreground)]",
-      icon: "text-[var(--color-success)]",
+        "bg-gradient-to-r from-success/10 to-success/5 border-success/20",
+      text: "text-foreground",
+      icon: "text-success",
       iconComponent: CheckCircle,
     },
     warning: {
       container:
-        "bg-gradient-to-r from-[var(--color-warning)]/10 to-[var(--color-warning)]/5 border-[var(--color-warning)]/20",
-      text: "text-[var(--color-foreground)]",
-      icon: "text-[var(--color-warning)]",
+        "bg-gradient-to-r from-warning/10 to-warning/5 border-warning/20",
+      text: "text-foreground",
+      icon: "text-warning",
       iconComponent: AlertCircle,
     },
     error: {
       container:
-        "bg-gradient-to-r from-[var(--color-destructive)]/10 to-[var(--color-destructive)]/5 border-[var(--color-destructive)]/20",
-      text: "text-[var(--color-foreground)]",
-      icon: "text-[var(--color-destructive)]",
+        "bg-gradient-to-r from-destructive/10 to-destructive/5 border-destructive/20",
+      text: "text-foreground",
+      icon: "text-destructive",
       iconComponent: XCircle,
     },
     info: {
       container:
-        "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-primary)]/5 border-[var(--color-primary)]/20",
-      text: "text-[var(--color-foreground)]",
-      icon: "text-[var(--color-primary)]",
+        "bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20",
+      text: "text-foreground",
+      icon: "text-primary",
       iconComponent: Info,
     },
   };

@@ -16,8 +16,8 @@ export default function OfflinePage() {
       <Container>
         <Stack spacing="lg" className="text-center max-w-md mx-auto">
           <div className="flex justify-center mb-4 w-full">
-            <div className="w-16 h-16 bg-[var(--color-warning)]/20 rounded-full flex items-center justify-center">
-              <WifiOff className="w-8 h-8 text-[var(--color-warning)]" />
+            <div className="w-16 h-16 bg-warning/20 rounded-full flex items-center justify-center">
+              <WifiOff className="w-8 h-8 text-warning" />
             </div>
           </div>
 

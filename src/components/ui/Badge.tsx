@@ -19,7 +19,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     ref
   ) => {
     // Use semantic CSS variables from globals.css
-    const variants: Record<string, string> = {
+    const variants = {
       default: "bg-surface text-foreground border border-border",
       primary: "bg-primary text-primary-foreground",
       secondary: "bg-surface text-muted-foreground border border-border",

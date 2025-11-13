@@ -56,12 +56,12 @@ const Checkbox = React.forwardRef<
             onCheckedChange={onChange}
             disabled={disabled}
             className={cn(
-              "peer h-4 w-4 shrink-0 rounded-sm border border-[var(--color-border)]",
-              "ring-offset-[var(--color-background)] focus-visible:outline-none",
-              "focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2",
+              "peer h-4 w-4 shrink-0 rounded-sm border border-border",
+              "ring-offset-bg focus-visible:outline-none",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               "disabled:cursor-not-allowed disabled:opacity-50",
-              "data-[state=checked]:bg-[var(--color-primary)] data-[state=checked]:text-[var(--color-primary-foreground)]",
-              "data-[state=checked]:border-[var(--color-primary)]",
+              "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+              "data-[state=checked]:border-primary",
               sizeClasses[size]
             )}
             {...(indeterminate && { "data-state": "indeterminate" })}
@@ -82,9 +82,7 @@ const Checkbox = React.forwardRef<
             <label
               className={cn(
                 "font-medium",
-                disabled
-                  ? "text-[var(--color-muted-foreground)]"
-                  : "text-[var(--color-foreground)]",
+                disabled ? "text-muted-foreground" : "text-foreground",
                 !disabled && "cursor-pointer"
               )}
             >
@@ -98,7 +96,7 @@ const Checkbox = React.forwardRef<
             )}
 
             {helperText && !error && (
-              <p className="mt-1 text-sm text-[var(--color-muted-foreground)]">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {helperText}
               </p>
             )}

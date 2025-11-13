@@ -38,19 +38,16 @@ const Button = React.forwardRef<
   ) => {
     const baseClasses = cn(
       "inline-flex items-center cursor-pointer justify-center font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
-      "focus:ring-[var(--color-ring)] focus:ring-offset-[var(--color-bg)]",
+      "focus:ring-ring focus:ring-offset-bg",
       fullWidth && "w-full"
     );
 
     const variants = {
-      primary:
-        "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] hover:transform hover:-translate-y-0.5",
-      secondary:
-        "bg-[var(--color-surface)] text-[var(--color-foreground)] border border-[var(--color-border)] hover:transform hover:-translate-y-0.5",
+      primary: "bg-primary text-primary-foreground",
+      secondary: "bg-surface text-foreground border border-border",
       ghost:
-        "text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-surface)] focus:bg-[var(--color-surface)]",
-      outline:
-        "border border-[var(--color-border)] text-[var(--color-foreground)] hover:bg-[var(--color-surface)]",
+        "text-muted-foreground hover:text-foreground hover:bg-surface focus:bg-surface",
+      outline: "border border-border text-foreground hover:bg-surface",
     } as const;
 
     const isIconOnly = Icon && !children;

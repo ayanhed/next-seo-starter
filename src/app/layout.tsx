@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import Navigation from "@/components/marketing/Navigation";
+import Navigation from "@/components/ui/Navigation";
 import Footer from "../components/marketing/Footer";
 
 const geistMono = Geist_Mono({
@@ -61,9 +61,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${geistMono.variable} ${inter.variable} antialiased bg-gradient-to-b from-[var(--color-bg)] via-[var(--color-surface)] to-[var(--color-bg)]`}
-      >
+      <body className={`${geistMono.variable} ${inter.variable} antialiased`}>
         <Navigation />
         <main className="container-full min-h-screen flex flex-col">
           <Providers>{children}</Providers>

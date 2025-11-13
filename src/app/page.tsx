@@ -1,4 +1,4 @@
-import Navigation from "@/components/marketing/Navigation";
+import Navigation from "@/components/ui/Navigation";
 import Hero from "@/components/marketing/Hero";
 import Partners from "@/components/marketing/Partners";
 import Benefits from "@/components/marketing/Benefits";

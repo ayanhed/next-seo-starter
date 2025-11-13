@@ -14,7 +14,7 @@ export default function Partners() {
   ];
 
   return (
-    <Section className="border-y border-[var(--color-border)] bg-[var(--color-surface)]/50">
+    <Section className="border-y border-border bg-surface/50">
       <div className="max-w-7xl mx-auto">
         <Text size="sm" variant="muted" className="text-center mb-8">
           Trusted by leading companies
@@ -26,7 +26,7 @@ export default function Partners() {
               key={partner}
               className="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity"
             >
-              <div className="w-16 h-16 bg-[var(--color-border)] rounded-lg flex items-center justify-center">
+              <div className="w-16 h-16 bg-border rounded-lg flex items-center justify-center">
                 <Text size="xs" className="font-semibold text-center px-2">
                   {partner}
                 </Text>

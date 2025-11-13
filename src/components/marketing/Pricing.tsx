@@ -52,7 +52,7 @@ export default function Pricing() {
   ];
 
   return (
-    <Section id="pricing" spacing="xl" className="bg-[var(--color-surface)]/30">
+    <Section id="pricing" spacing="xl" className="bg-surface/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <Heading level={2} className="text-3xl lg:text-4xl mb-4">
@@ -71,15 +71,15 @@ export default function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative bg-[var(--color-surface)] rounded-2xl p-8 border transition-all hover:shadow-xl ${
+              className={`relative bg-surface rounded-2xl p-8 border transition-all hover:shadow-xl ${
                 plan.popular
-                  ? "border-[var(--color-primary)] shadow-lg scale-105"
-                  : "border-[var(--color-border)]"
+                  ? "border-primary shadow-lg scale-105"
+                  : "border-border"
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-[var(--color-primary)] text-white px-4 py-1">
+                  <Badge className="bg-primary text-primary-foreground px-4 py-1">
                     Most Popular
                   </Badge>
                 </div>
@@ -90,10 +90,10 @@ export default function Pricing() {
                   {plan.name}
                 </Heading>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold text-[var(--color-foreground)]">
+                  <span className="text-4xl font-bold text-foreground">
                     {plan.price}
                   </span>
-                  <span className="text-[var(--color-muted-foreground)]">
+                  <span className="text-muted-foreground">
                     {plan.period}
                   </span>
                 </div>
@@ -105,8 +105,8 @@ export default function Pricing() {
               <div className="space-y-4 mb-8">
                 {plan.features.map((feature, featureIndex) => (
                   <div key={featureIndex} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-[var(--color-primary)]" />
+                    <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-2 h-2 rounded-full bg-primary" />
                     </div>
                     <Text size="sm">{feature}</Text>
                   </div>

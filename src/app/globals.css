@@ -4,23 +4,65 @@
 @custom-variant light (&:where([data-theme=light], [data-theme=light] *));
 
 @theme inline {
-  /* Semantic design tokens (default to dark theme) */
-  --color-brand: #ad46ff;
-  --color-bg: #1a1a1a;
-  --color-surface: #2a2a2a;
-  --color-card: #2a2a2a;
-  --color-foreground: #ffffff;
-  --color-muted-foreground: #a0a0a0;
-  --color-border: #ffffff1a;
-  --color-ring: var(--color-brand);
-  --color-input: #1f2937;
-  --color-primary: var(--color-brand);
-  --color-primary-foreground: #ffffff;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-destructive: #ef4444;
+  /* Primary Purple - Main brand color */
+  --color-purple-base: #7c3aed;
+  --color-purple-darker: #6d28d9;
+  --color-purple-lighter: #ede9fe;
+  --color-purple-light: #a78bfa;
+
+  /* Accent Colors */
+  --color-green-base: #10b981;
+  --color-green-darker: #059669;
+  --color-green-lighter: #d1fae5;
+
+  --color-orange-base: #f59e0b;
+  --color-orange-darker: #d97706;
+  --color-orange-lighter: #fef3c7;
+
+  --color-red-base: #ef4444;
+  --color-red-darker: #dc2626;
+  --color-red-lighter: #fee2e2;
+
+  --color-blue-base: #3b82f6;
+  --color-blue-darker: #2563eb;
+  --color-blue-lighter: #dbeafe;
+
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-off-white: #fafafa;
+  --color-light-gray: #f3f4f6;
+  --color-medium-gray: #9ca3af;
+  --color-dark-gray: #374151;
+  --color-black: #111827;
+
+  /* Elevation System */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Typography */
   --font-mono: var(--font-geist-mono);
   --font-sans: var(--font-inter);
+
+  /* Semantic aliases built on top of the palette */
+  --color-brand: var(--color-purple-base);
+  --color-bg: #faf9fe;
+  --color-surface: var(--color-white);
+  --color-card: var(--color-white);
+  --color-foreground: var(--color-black);
+  --color-muted-foreground: var(--color-medium-gray);
+  --color-border: #e5e7eb;
+  --color-ring: var(--color-purple-base);
+  --color-input: var(--color-white);
+  --color-primary: var(--color-purple-base);
+  --color-primary-foreground: var(--color-white);
+  --color-success: var(--color-green-base);
+  --color-warning: var(--color-orange-base);
+  --color-destructive: var(--color-red-base);
 }
 
 @layer base {
@@ -43,12 +85,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-gray-600);
+    background: var(--color-medium-gray);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gray-500);
+    background: var(--color-dark-gray);
   }
 }
 

@@ -34,7 +34,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[var(--color-surface)] border-t border-[var(--color-border)] mt-20">
+    <footer className="bg-surface border-t border-border mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand section */}
@@ -57,7 +57,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom section */}
-        <div className="border-t border-[var(--color-border)] mt-12 pt-8">
+        <div className="border-t border-border mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-6">
               <Text size="sm" variant="muted">

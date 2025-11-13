@@ -61,10 +61,10 @@ export function FAQ({ items }: { items: QA[] }) {
           {faqItems.map((item, index) => (
             <div
               key={index}
-              className="bg-[var(--color-surface)] rounded-lg border border-[var(--color-border)] overflow-hidden"
+              className="bg-surface rounded-lg border border-border overflow-hidden"
             >
               <button
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-[var(--color-bg)] transition-colors"
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-bg transition-colors"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
                 <Heading level={4} className="text-lg">
@@ -76,9 +76,9 @@ export function FAQ({ items }: { items: QA[] }) {
                   }`}
                 >
                   <div className="w-6 h-6 flex items-center justify-center">
-                    <div className="w-4 h-0.5 bg-[var(--color-foreground)] absolute"></div>
+                    <div className="w-4 h-0.5 bg-foreground absolute"></div>
                     <div
-                      className={`w-0.5 h-4 bg-[var(--color-foreground)] absolute transition-opacity ${
+                      className={`w-0.5 h-4 bg-foreground absolute transition-opacity ${
                         openIndex === index ? "opacity-0" : "opacity-100"
                       }`}
                     ></div>

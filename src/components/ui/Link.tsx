@@ -11,13 +11,11 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ variant = "default", children, ...props }, ref) => {
     const variants = {
-      default:
-        "text-[var(--color-foreground)] hover:text-[var(--color-primary)]",
+      default: "text-foreground hover:text-primary",
       button:
-        "bg-[var(--color-primary)] text-[var(--color-primary-foreground)] px-6 py-3 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:brightness-105 inline-flex items-center gap-2",
-      muted:
-        "text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] ",
-      underline: "hover:text-[var(--color-primary)]  font-medium underline",
+        "bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:brightness-105 inline-flex items-center gap-2",
+      muted: "text-muted-foreground hover:text-foreground",
+      underline: "hover:text-primary font-medium underline",
     } as const;
 
     return (
