@@ -29,7 +29,7 @@ export const appConfig: AppConfig = {
     name: process.env.NEXT_PUBLIC_APP_NAME || "[APP_NAME]",
     description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "[APP_DESCRIPTION]",
     keywords: ["[APP_KEYWORDS]"],
-    baseUrl: envSiteUrl || "http://localhost:3000",
+    baseUrl: envSiteUrl || "https://localhost:3000",
     locale: "en-GB",
     authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "[APP_AUTHOR]" }],
     categories: ["[APP_CATEGORIES]"],

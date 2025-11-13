@@ -4,7 +4,14 @@ import { cn } from "@/lib/utils";
 interface TextProps {
   children: ReactNode;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-  variant?: "default" | "muted" | "accent" | "success" | "warning" | "error";
+  variant?:
+    | "default"
+    | "muted"
+    | "accent"
+    | "success"
+    | "warning"
+    | "error"
+    | "light";
   weight?: "normal" | "medium" | "semibold" | "bold";
   align?: "left" | "center" | "right" | "justify";
   className?: string;
@@ -24,6 +31,7 @@ const variantClasses = {
   default: "text-foreground",
   muted: "text-muted-foreground",
   accent: "text-primary",
+  light: "text-primary-foreground",
   success: "text-success",
   warning: "text-warning",
   error: "text-destructive",

@@ -63,7 +63,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${geistMono.variable} ${inter.variable} antialiased`}>
         <Navigation />
-        <main className="container-full min-h-screen flex flex-col">
+        <main className="container-full flex flex-col">
           <Providers>{children}</Providers>
         </main>
         <Footer />

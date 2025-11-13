@@ -37,7 +37,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       {
         ref,
         className: cn(
-          "text-foreground font-mono mb-1",
+          "text-foreground mb-1",
           sizes[level],
           lead && leadClasses[lead],
           className

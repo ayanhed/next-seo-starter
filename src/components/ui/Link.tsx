@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
-  variant?: "default" | "button" | "underline" | "muted";
+  variant?: "default" | "underline" | "muted" | "light";
   children: React.ReactNode;
 }
 
@@ -12,9 +12,8 @@ const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ variant = "default", children, ...props }, ref) => {
     const variants = {
       default: "text-foreground hover:text-primary",
-      button:
-        "bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:brightness-105 inline-flex items-center gap-2",
       muted: "text-muted-foreground hover:text-foreground",
+      light: "text-primary-foreground hover:text-primary-light",
       underline: "hover:text-primary font-medium underline",
     } as const;
 

@@ -5,62 +5,63 @@ import { Section, Heading, Text, Card } from "@/components/ui";
 
 type QA = { q: string; a: string };
 
-export function FAQ({ items }: { items: QA[] }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+export interface FAQProps {
+  items?: QA[];
+  id?: string;
+  title?: string;
+  description?: string;
+  defaultOpenIndex?: number | null;
+  className?: string;
+}
 
-  const defaultFAQs = [
-    {
-      q: "How does this platform work?",
-      a: "Our platform provides a simple and intuitive way to manage your workflow. Sign up, configure your settings, and start using our powerful features right away.",
-    },
-    {
-      q: "Is my data secure?",
-      a: "Absolutely! We use enterprise-grade security measures including encryption, secure servers, and regular security audits to protect your data and privacy.",
-    },
-    {
-      q: "Do I need to create an account?",
-      a: "Yes, creating an account is required to access our platform features. However, our signup process is quick and straightforward.",
-    },
-    {
-      q: "What features are included?",
-      a: "Our platform includes core functionality, advanced analytics, team collaboration tools, API access, and 24/7 customer support depending on your plan.",
-    },
-    {
-      q: "Can I cancel anytime?",
-      a: "Yes, you can cancel your subscription at any time. There are no long-term contracts or cancellation fees.",
-    },
-    {
-      q: "Do you offer customer support?",
-      a: "Yes! We provide comprehensive customer support through email, chat, and phone. Premium users get priority support with faster response times.",
-    },
-    {
-      q: "How do I report issues?",
-      a: "You can report issues through our support portal, email, or in-app feedback system. We review all reports and respond within 24 hours.",
-    },
-    {
-      q: "Can I integrate with other tools?",
-      a: "Yes, we offer API access and integrations with popular third-party tools. Check our documentation for a complete list of available integrations.",
-    },
-  ];
+const defaultFAQs: QA[] = [
+  {
+    q: "How does this starter work?",
+    a: "Each section ships with sensible defaults so you can keep the copy or replace it with your own data through props.",
+  },
+  {
+    q: "Can I customize the design?",
+    a: "Absolutely. Update the props, tweak the Tailwind classes, or replace the UI primitives with your component library.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "The starter does not ship with a backend, so you decide how and where to store sensitive information when you integrate it.",
+  },
+  {
+    q: "Do I need to keep every section?",
+    a: "Nope. Remove the ones you do not need or swap them for your own components. Everything is opt-in.",
+  },
+];
 
+export default function FAQ({
+  items = [],
+  id = "faq",
+  title = "Frequently Asked Questions",
+  description = "Answer the common questions your audience might ask before they convert.",
+  defaultOpenIndex = 0,
+  className = "",
+}: FAQProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(defaultOpenIndex);
   const faqItems = items.length > 0 ? items : defaultFAQs;
 
   return (
-    <Section id="faq" spacing="xl">
+    <Section id={id} spacing="xl" className={className}>
       <Card className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <Heading level={2} className="text-3xl lg:text-4xl mb-4">
-            Frequently Asked Questions
+            {title}
           </Heading>
-          <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
-            Find answers to common questions about our platform and services
-          </Text>
+          {description && (
+            <Text size="lg" variant="muted" className="max-w-2xl mx-auto">
+              {description}
+            </Text>
+          )}
         </div>
 
         <div className="space-y-4">
           {faqItems.map((item, index) => (
             <div
-              key={index}
+              key={`${item.q}-${index}`}
               className="bg-surface rounded-lg border border-border overflow-hidden"
             >
               <button
@@ -75,7 +76,7 @@ export function FAQ({ items }: { items: QA[] }) {
                     openIndex === index ? "rotate-45" : ""
                   }`}
                 >
-                  <div className="w-6 h-6 flex items-center justify-center">
+                  <div className="w-6 h-6 flex items-center justify-center relative">
                     <div className="w-4 h-0.5 bg-foreground absolute"></div>
                     <div
                       className={`w-0.5 h-4 bg-foreground absolute transition-opacity ${

@@ -31,7 +31,7 @@ export default function Hero({
   description = "Create, collaborate, and scale your ideas with our powerful platform. Join thousands of users who trust us with their projects.",
   primaryCta = {
     text: "Get Started Free",
-    href: "#",
+    href: "/register",
   },
   secondaryCta = {
     text: "Learn More",
@@ -48,7 +48,7 @@ export default function Hero({
   return (
     <Section
       spacing="xl"
-      className={`relative min-h-screen flex items-center justify-center overflow-hidden ${className}`}
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-bg to-primary/10 ${className}`}
     >
       {/* Background Image or Video */}
       {backgroundImage && (
@@ -118,7 +118,7 @@ export default function Hero({
                 size="lg"
                 variant="primary"
                 className="text-lg px-8 py-4 w-full sm:w-auto"
-                as="a"
+                as="link"
                 href={primaryCta.href}
               >
                 {primaryCta.text}
@@ -139,7 +139,7 @@ export default function Hero({
                 size="lg"
                 variant="outline"
                 className="text-lg px-8 py-4 w-full sm:w-auto"
-                as="a"
+                as="link"
                 href={secondaryCta.href}
               >
                 {secondaryCta.text}

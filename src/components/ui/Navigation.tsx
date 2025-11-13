@@ -7,11 +7,12 @@ import { Button } from "@/components/ui";
 import { appConfig } from "@/config/app";
 import useActiveHash from "@/hooks/useActiveHash";
 
+const baseUrl = appConfig.app.baseUrl;
+
 const navItems = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Features", href: `${baseUrl}#features` },
+  { label: "Pricing", href: `${baseUrl}#pricing` },
+  { label: "FAQ", href: `${baseUrl}#faq` },
 ];
 
 const hashItems = navItems
@@ -76,7 +77,7 @@ function NavLink({
       href={item.href}
       className={`transition-colors ${
         isActive
-          ? "text-foreground font-medium"
+          ? "text-primary font-medium"
           : "text-muted-foreground hover:text-foreground"
       }`}
       onClick={onClick}
@@ -108,7 +109,9 @@ export default function Navigation() {
           </div>
 
           <div className="hidden md:block">
-            <Button variant="primary">Get Started</Button>
+            <Button as="link" href="/register" variant="primary">
+              Get Started
+            </Button>
           </div>
 
           <button
@@ -131,7 +134,13 @@ export default function Navigation() {
                   onClick={() => setIsOpen(false)}
                 />
               ))}
-              <Button size="sm" variant="primary" className="w-fit">
+              <Button
+                size="sm"
+                as="link"
+                href="/register"
+                variant="primary"
+                className="w-fit"
+              >
                 Get Started
               </Button>
             </div>

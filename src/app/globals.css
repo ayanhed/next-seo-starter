@@ -5,10 +5,10 @@
 
 @theme inline {
   /* Primary Purple - Main brand color */
-  --color-purple-base: #7c3aed;
-  --color-purple-darker: #6d28d9;
-  --color-purple-lighter: #ede9fe;
-  --color-purple-light: #a78bfa;
+  --color-primary-base: #0351ff;
+  --color-primary-darker: #002a84;
+  --color-primary-lighter: #e6f0ff;
+  --color-primary-light: #76a1ff;
 
   /* Accent Colors */
   --color-green-base: #10b981;
@@ -23,9 +23,9 @@
   --color-red-darker: #dc2626;
   --color-red-lighter: #fee2e2;
 
-  --color-blue-base: #3b82f6;
-  --color-blue-darker: #2563eb;
-  --color-blue-lighter: #dbeafe;
+  --color-blue-base: var(--color-primary-base);
+  --color-blue-darker: var(--color-primary-darker);
+  --color-blue-lighter: var(--color-primary-lighter);
 
   /* Neutral Colors */
   --color-white: #ffffff;
@@ -49,16 +49,16 @@
   --font-sans: var(--font-inter);
 
   /* Semantic aliases built on top of the palette */
-  --color-brand: var(--color-purple-base);
+  --color-brand: var(--color-primary-base);
   --color-bg: #faf9fe;
   --color-surface: var(--color-white);
   --color-card: var(--color-white);
   --color-foreground: var(--color-black);
   --color-muted-foreground: var(--color-medium-gray);
   --color-border: #e5e7eb;
-  --color-ring: var(--color-purple-base);
+  --color-ring: var(--color-primary-base);
   --color-input: var(--color-white);
-  --color-primary: var(--color-purple-base);
+  --color-primary: var(--color-primary-base);
   --color-primary-foreground: var(--color-white);
   --color-success: var(--color-green-base);
   --color-warning: var(--color-orange-base);
