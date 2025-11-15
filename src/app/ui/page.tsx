@@ -358,8 +358,8 @@ export default function UiShowcasePage() {
                 <UiLink href="#" variant="muted">
                   Muted link
                 </UiLink>
-                <UiLink href="#" variant="button">
-                  External link
+                <UiLink href="#" variant="light">
+                  Light link
                 </UiLink>
                 <UiLink href="#" variant="underline">
                   Underlined link

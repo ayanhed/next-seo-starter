@@ -85,15 +85,15 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-medium-gray);
+    background: var(--color-primary-darker);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-dark-gray);
+    background: var(--color-primary-base);
   }
 }
 
 @utility container-full {
-  padding-inline: 1rem;
+  padding-inline: 0rem;
 }

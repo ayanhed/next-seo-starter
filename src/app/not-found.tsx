@@ -21,7 +21,7 @@ export default function NotFound() {
 
           <div className="mt-8 flex items-center justify-center gap-4">
             <Button
-              as="a"
+              as="link"
               href="/"
               variant="ghost"
               size="lg"

@@ -129,9 +129,7 @@ export default function Pricing({
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-muted-foreground">
-                      {plan.period}
-                    </span>
+                    <span className="text-muted-foreground">{plan.period}</span>
                   )}
                 </div>
                 {plan.description && (
@@ -164,7 +162,7 @@ export default function Pricing({
                   }
                   className="w-full"
                   size="lg"
-                  as={plan.cta.href ? "a" : "button"}
+                  as={plan.cta.href ? "link" : "button"}
                   href={plan.cta.href}
                   target={plan.cta.target}
                 >

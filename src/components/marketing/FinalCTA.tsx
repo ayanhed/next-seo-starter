@@ -41,7 +41,11 @@ export default function FinalCTA({
         <div className="space-y-8">
           <div className="space-y-2">
             {eyebrow && (
-              <Text size="sm" variant="muted" className="uppercase tracking-wide">
+              <Text
+                size="sm"
+                variant="muted"
+                className="uppercase tracking-wide"
+              >
                 {eyebrow}
               </Text>
             )}
@@ -62,7 +66,7 @@ export default function FinalCTA({
                   size="lg"
                   variant={primaryCta.variant ?? "primary"}
                   className="text-lg px-8 py-4"
-                  as={primaryCta.href ? "a" : "button"}
+                  as={primaryCta.href ? "link" : "button"}
                   href={primaryCta.href}
                   onClick={primaryCta.onClick}
                 >
@@ -74,7 +78,7 @@ export default function FinalCTA({
                   size="lg"
                   variant={secondaryCta.variant ?? "outline"}
                   className="text-lg px-8 py-4"
-                  as={secondaryCta.href ? "a" : "button"}
+                  as={secondaryCta.href ? "link" : "button"}
                   href={secondaryCta.href}
                   onClick={secondaryCta.onClick}
                 >
