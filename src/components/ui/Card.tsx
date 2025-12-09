@@ -10,9 +10,9 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = "dark", children, size = "md", ...props }, ref) => {
     const variants = {
-      default: "bg-card border border-border shadow-sm",
-      dark: "bg-card border border-border rounded-xl",
-      outlined: "border border-border bg-transparent",
+      default: "bg-base-100 border border-base-200 shadow-sm",
+      dark: "bg-base-200 border border-base-300",
+      outlined: "border border-base-300 bg-transparent",
     } as const;
 
     const sizeClasses = {
@@ -25,7 +25,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-2xl overflow-hidden",
+          "card rounded-2xl overflow-hidden",
           variants[variant],
           sizeClasses[size],
           className

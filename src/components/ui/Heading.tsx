@@ -6,14 +6,10 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   lead?: 1 | 2 | 3;
-  animate?: boolean;
 }
 
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  (
-    { className, level = 2, as, children, lead, animate = false, ...props },
-    ref
-  ) => {
+  ({ className, level = 2, as, children, lead, ...props }, ref) => {
     const Component =
       as || (`h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6");
 
@@ -37,7 +33,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       {
         ref,
         className: cn(
-          "text-foreground mb-1",
+          "text-base-content mb-1",
           sizes[level],
           lead && leadClasses[lead],
           className

@@ -84,14 +84,14 @@ export default function Footer({
 
   return (
     <footer
-      className={`bg-primary-darker border-t border-border mt-20 ${className}`.trim()}
+      className={`bg-base-200 border-t border-base-300 mt-20 ${className}`.trim()}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <Text variant="light" className="flex items-center space-x-2">
+            <Text className="flex items-center space-x-2">
               <Link
-                variant="light"
+                variant="default"
                 href="/"
                 className="flex items-center space-x-2"
               >
@@ -100,7 +100,7 @@ export default function Footer({
             </Text>
 
             {resolvedBranding.description && (
-              <Text variant="light" className="max-w-md">
+              <Text className="max-w-md">
                 {resolvedBranding.description}
               </Text>
             )}
@@ -108,13 +108,13 @@ export default function Footer({
 
           {sections.map((section) => (
             <div key={section.title} className="space-y-4">
-              <Text variant="light" className="font-semibold">
+              <Text className="font-semibold">
                 {section.title}
               </Text>
               <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={`${section.title}-${link.href}`}>
-                    <Link variant="light" href={link.href}>
+                    <Link variant="default" href={link.href}>
                       {link.label}
                     </Link>
                   </li>
@@ -124,9 +124,9 @@ export default function Footer({
           ))}
         </div>
 
-        <div className="border-t border-black/40 mt-12 pt-8">
+        <div className="border-t border-base-300 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <Text variant="light" size="sm">
+            <Text size="sm">
               {resolvedNote}
             </Text>
           </div>

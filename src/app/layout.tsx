@@ -59,8 +59,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${geistMono.variable} ${inter.variable} antialiased`}>
+    <html
+      lang="en"
+      className="scroll-smooth"
+      data-theme="mytheme"
+      suppressHydrationWarning
+    >
+      <body
+        className={`${geistMono.variable} ${inter.variable} antialiased bg-base-100 text-base-content`}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

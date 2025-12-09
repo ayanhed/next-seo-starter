@@ -66,7 +66,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full md:max-w-md">
       <Card className="p-8">
         <div className="text-center mb-6">
           <Heading level={2} className="mb-2">

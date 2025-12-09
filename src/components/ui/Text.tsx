@@ -11,7 +11,8 @@ interface TextProps {
     | "success"
     | "warning"
     | "error"
-    | "light";
+    | "light"
+    | "info";
   weight?: "normal" | "medium" | "semibold" | "bold";
   align?: "left" | "center" | "right" | "justify";
   className?: string;
@@ -28,13 +29,14 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  default: "text-foreground",
-  muted: "text-muted-foreground",
-  accent: "text-primary",
-  light: "text-primary-foreground",
-  success: "text-success",
-  warning: "text-warning",
-  error: "text-destructive",
+  default: "text-base-content",
+  muted: "text-neutral-content",
+  accent: "text-accent-content",
+  light: "text-primary-content",
+  success: "text-success-content",
+  warning: "text-warning-content",
+  error: "text-error-content",
+  info: "text-info-content",
 } as const;
 
 const weightClasses = {

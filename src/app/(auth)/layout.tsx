@@ -1,11 +1,18 @@
+import Navigation from "@/components/ui/Navigation";
+import Footer from "@/app/(marketing)/components/Footer";
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-center pt-10 min-h-screen">
-      {children}
-    </div>
+    <>
+      <Navigation />
+      <main className="flex items-center justify-center md:mt-20 p-5">
+        {children}
+      </main>
+      <Footer />
+    </>
   );
 }

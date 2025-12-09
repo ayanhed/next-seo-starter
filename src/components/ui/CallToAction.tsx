@@ -1,9 +1,6 @@
 import React from "react";
-import Section from "./Section";
-import Button from "./Button";
 import { ArrowRight } from "lucide-react";
-import Heading from "./Heading";
-import Text from "./Text";
+import Link from "next/link";
 
 interface CallToActionProps {
   title: string;
@@ -19,13 +16,18 @@ const CallToAction: React.FC<CallToActionProps> = ({
   buttonHref,
 }) => {
   return (
-    <Section className="bg-surface/50 border border-border rounded-2xl p-6 space-y-4">
-      <Heading level={4}>{title}</Heading>
-      {description && <Text variant="muted">{description}</Text>}
-      <Button icon={ArrowRight} iconPosition="right">
-        <a href={buttonHref}>{buttonText}</a>
-      </Button>
-    </Section>
+    <div className="hero bg-base-200 border border-base-300 rounded-2xl p-8">
+      <div className="hero-content flex-col text-center">
+        <h3 className="text-2xl font-semibold">{title}</h3>
+        {description && (
+          <p className="text-base-content/70 max-w-xl">{description}</p>
+        )}
+        <Link href={buttonHref} className="btn btn-primary gap-2">
+          {buttonText}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </div>
   );
 };
 

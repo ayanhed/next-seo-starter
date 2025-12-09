@@ -48,7 +48,7 @@ export default function Hero({
   return (
     <Section
       spacing="xl"
-      className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-bg to-primary/10 ${className}`}
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-base-100 to-primary/10 ${className}`}
     >
       {/* Background Image or Video */}
       {backgroundImage && (
@@ -168,7 +168,7 @@ export default function Hero({
                     {[1, 2, 3, 4, 5, 6].map((fileNumber) => (
                       <div
                         key={fileNumber}
-                        className="w-8 h-8 rounded-full border-2 border-surface bg-card flex items-center justify-center text-xs font-semibold"
+                        className="w-8 h-8 text-primary-content rounded-full border-2 border-base-200 bg-primary flex items-center justify-center text-xs font-semibold"
                       >
                         {fileNumber}
                       </div>

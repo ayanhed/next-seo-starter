@@ -37,48 +37,36 @@ const Button = React.forwardRef<
     },
     ref
   ) => {
+    const isIconOnly = Icon && !children;
+
     const baseClasses = cn(
-      "inline-flex items-center cursor-pointer justify-center font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2",
-      "focus:ring-ring focus:ring-offset-bg",
-      "disabled:bg-primary-light disabled:cursor-not-allowed",
-      fullWidth && "w-full"
+      "btn inline-flex items-center gap-2 font-semibold",
+      fullWidth && "btn-block",
+      pill && "rounded-full",
+      isIconOnly && "btn-square",
+      className
     );
 
     const variants = {
-      primary: "bg-primary text-primary-foreground",
-      secondary: "bg-surface text-foreground border border-border",
-      ghost:
-        "text-muted-foreground hover:text-foreground hover:bg-surface focus:bg-surface",
-      outline: "border border-border text-foreground hover:bg-surface",
+      primary: "btn-primary",
+      secondary: "btn-secondary",
+      ghost: "btn-ghost",
+      outline: "btn-outline",
     } as const;
 
-    const isIconOnly = Icon && !children;
-
-    const sizes = isIconOnly
-      ? {
-          sm: `p-1 sm:p-1.5 ${pill ? "rounded-full" : "rounded-md"}`,
-          md: `p-1.5 sm:p-2 ${pill ? "rounded-full" : "rounded-lg"}`,
-          lg: `p-2 sm:p-2.5 ${pill ? "rounded-full" : "rounded-lg"}`,
-        }
-      : {
-          sm: `px-2 py-1.5 text-xs sm:px-3 sm:py-2 sm:text-sm ${
-            pill ? "rounded-full" : "rounded-md"
-          }`,
-          md: `px-4 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base ${
-            pill ? "rounded-full" : "rounded-lg"
-          }`,
-          lg: `px-6 py-3 text-base sm:px-8 sm:py-4 sm:text-lg ${
-            pill ? "rounded-full" : "rounded-lg"
-          }`,
-        };
+    const sizes = {
+      sm: "btn-sm",
+      md: "btn-md",
+      lg: "btn-lg",
+    } as const;
 
     const iconSizes = {
-      sm: "h-3 w-3 sm:h-4 sm:w-4",
-      md: "h-4 w-4 sm:h-5 sm:w-5",
-      lg: "h-5 w-5 sm:h-6 sm:w-6",
+      sm: "h-4 w-4",
+      md: "h-5 w-5",
+      lg: "h-6 w-6",
     };
 
-    const classes = cn(baseClasses, variants[variant], sizes[size], className);
+    const classes = cn(baseClasses, variants[variant], sizes[size]);
 
     if (as === "link") {
       return (

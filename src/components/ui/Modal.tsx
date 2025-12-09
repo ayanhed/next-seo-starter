@@ -63,7 +63,7 @@ export default function Modal({
                 >
                   <div className={`relative w-full ${maxWidth} ${className}`}>
                     {/* Glass effect container */}
-                    <div className="relative overflow-hidden rounded-2xl bg-surface/80 backdrop-blur-xl border border-border shadow-2xl">
+                    <div className="relative overflow-hidden rounded-2xl bg-base-100/90 backdrop-blur-xl border border-base-300 shadow-2xl">
                       {/* Content */}
                       <div className="relative p-6">
                         {/* Hidden title for accessibility */}

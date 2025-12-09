@@ -1,8 +1,6 @@
 "use client";
 
-import * as React from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "lucide-react";
+import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface CheckboxProps {
@@ -17,10 +15,7 @@ interface CheckboxProps {
   indeterminate?: boolean;
 }
 
-const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
-  CheckboxProps
->(
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked = false,
@@ -33,76 +28,66 @@ const Checkbox = React.forwardRef<
       size = "md",
       indeterminate = false,
     },
-    ref
+    forwardedRef
   ) => {
-    const sizeClasses = {
-      sm: "w-4 h-4",
-      md: "w-5 h-5",
-      lg: "w-6 h-6",
-    };
+    const innerRef = useRef<HTMLInputElement>(null);
 
-    const iconSizes = {
-      sm: "w-3 h-3",
-      md: "w-4 h-4",
-      lg: "w-5 h-5",
-    };
+    useEffect(() => {
+      if (innerRef.current) {
+        innerRef.current.indeterminate = indeterminate;
+      }
+    }, [indeterminate]);
+
+    const sizeClasses = {
+      sm: "checkbox-sm",
+      md: "",
+      lg: "checkbox-lg",
+    } as const;
 
     return (
-      <div className={cn("flex items-start", className)}>
-        <div className="flex items-center h-5">
-          <CheckboxPrimitive.Root
-            ref={ref}
-            checked={checked}
-            onCheckedChange={onChange}
-            disabled={disabled}
-            className={cn(
-              "peer h-4 w-4 shrink-0 rounded-sm border border-border",
-              "ring-offset-bg focus-visible:outline-none",
-              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-              "disabled:cursor-not-allowed disabled:opacity-50",
-              "data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
-              "data-[state=checked]:border-primary",
-              sizeClasses[size]
-            )}
-            {...(indeterminate && { "data-state": "indeterminate" })}
-          >
-            <CheckboxPrimitive.Indicator
-              className={cn("flex items-center justify-center text-current")}
-            >
-              <Check
-                className={cn("text-white", iconSizes[size])}
-                strokeWidth={3}
-              />
-            </CheckboxPrimitive.Indicator>
-          </CheckboxPrimitive.Root>
-        </div>
+      <label className={cn("flex items-start gap-3", className)}>
+        <input
+          ref={(node) => {
+            innerRef.current = node;
+            if (typeof forwardedRef === "function") {
+              forwardedRef(node);
+            } else if (forwardedRef) {
+              (forwardedRef as React.MutableRefObject<HTMLInputElement | null>).current =
+                node;
+            }
+          }}
+          type="checkbox"
+          className={cn(
+            "checkbox mt-1",
+            sizeClasses[size],
+            error && "checkbox-error"
+          )}
+          checked={checked}
+          onChange={(event) => onChange?.(event.target.checked)}
+          disabled={disabled}
+        />
 
-        {label && (
-          <div className="ml-3 text-sm">
-            <label
-              className={cn(
-                "font-medium",
-                disabled ? "text-muted-foreground" : "text-foreground",
-                !disabled && "cursor-pointer"
-              )}
-            >
-              {label}
-            </label>
-
-            {error && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                {error}
-              </p>
+        {(label || error || helperText) && (
+          <div className="text-sm">
+            {label && (
+              <span
+                className={cn(
+                  "font-medium",
+                  disabled ? "text-base-content/60" : "text-base-content"
+                )}
+              >
+                {label}
+              </span>
             )}
+
+            {error && <p className="mt-1 text-error text-sm">{error}</p>}
 
             {helperText && !error && (
-              <p className="mt-1 text-sm text-muted-foreground">
-                {helperText}
-              </p>
+              <p className="mt-1 text-base-content/70 text-sm">{helperText}</p>
             )}
           </div>
         )}
-      </div>
+      </label>
     );
   }
 );

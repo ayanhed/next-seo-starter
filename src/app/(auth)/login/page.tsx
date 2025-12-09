@@ -44,7 +44,7 @@ export default function LoginPage() {
           <Heading level={2} className="mb-2">
             Sign In
           </Heading>
-          <Text variant="muted">Welcome back to {appConfig.app.name}</Text>
+          <Text>Welcome back to {appConfig.app.name}</Text>
         </div>
 
         {error && (
@@ -62,7 +62,7 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 text-center">
-          <Text variant="muted" className="text-sm">
+          <Text size="sm">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"

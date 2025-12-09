@@ -1,23 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui";
 import { appConfig } from "@/config/app";
 import useActiveHash from "@/hooks/useActiveHash";
 
 const baseUrl = appConfig.app.baseUrl;
 
 const navItems = [
-  { label: "Features", href: `${baseUrl}#features` },
-  { label: "Pricing", href: `${baseUrl}#pricing` },
-  { label: "FAQ", href: `${baseUrl}#faq` },
+  { label: "Features", href: `/#features` },
+  { label: "Pricing", href: `/#pricing` },
+  { label: "FAQ", href: `/#faq` },
 ];
 
 const hashItems = navItems
-  .filter((item) => item.href.startsWith("#"))
-  .map((item) => item.href);
+  .filter((item) => item.href.includes("#"))
+  .map((item) => {
+    const hashPart = item.href.split("#")[1];
+    return hashPart ? `#${hashPart}` : "";
+  })
+  .filter(Boolean);
 
 // Helper to check if nav item is active
 function isNavItemActive(
@@ -25,128 +27,98 @@ function isNavItemActive(
   pathname: string,
   activeHash: string
 ): boolean {
-  const isHashLink = href.startsWith("#");
+  const isHashLink = href.includes("#");
 
   if (isHashLink) {
-    return pathname === "/" && activeHash === href;
+    const hash = `#${href.split("#")[1]}`;
+    return pathname === "/" && activeHash === hash;
   }
 
   return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-// Mobile menu icon component
-function MenuIcon({ isOpen }: { isOpen: boolean }) {
-  return (
-    <svg
-      className="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      {isOpen ? (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M6 18L18 6M6 6l12 12"
-        />
-      ) : (
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M4 6h16M4 12h16M4 18h16"
-        />
-      )}
-    </svg>
-  );
 }
 
 // Nav link component
 function NavLink({
   item,
   isActive,
-  onClick,
 }: {
   item: { label: string; href: string };
   isActive: boolean;
-  onClick?: () => void;
 }) {
   return (
-    <Link
-      href={item.href}
-      className={`transition-colors ${
-        isActive
-          ? "text-primary font-medium"
-          : "text-muted-foreground hover:text-foreground"
-      }`}
-      onClick={onClick}
-    >
+    <Link href={item.href} className={isActive ? "active" : ""}>
       {item.label}
     </Link>
   );
 }
 
 export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const activeHash = useActiveHash(hashItems);
 
   return (
-    <nav className="sticky top-0 z-50 bg-surface/95 backdrop-blur-sm border-b border-border">
-      <div className="px-4 py-2 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/">{appConfig.app.name}</Link>
-
-          <div className="hidden md:flex items-center space-x-8">
+    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          >
             {navItems.map((item) => (
+              <li key={item.href}>
+                <NavLink
+                  item={item}
+                  isActive={isNavItemActive(item.href, pathname, activeHash)}
+                />
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/register"
+                className="btn btn-primary w-full justify-center"
+              >
+                Get Started
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <Link href="/" className="btn btn-ghost text-xl">
+          {appConfig.app.name}
+        </Link>
+      </div>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {navItems.map((item) => (
+            <li key={item.href}>
               <NavLink
-                key={item.href}
                 item={item}
                 isActive={isNavItemActive(item.href, pathname, activeHash)}
               />
-            ))}
-          </div>
-
-          <div className="hidden md:block">
-            <Button as="link" href="/register" variant="primary">
-              Get Started
-            </Button>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-foreground"
-            aria-label="Toggle menu"
-          >
-            <MenuIcon isOpen={isOpen} />
-          </button>
-        </div>
-
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.href}
-                  item={item}
-                  isActive={isNavItemActive(item.href, pathname, activeHash)}
-                  onClick={() => setIsOpen(false)}
-                />
-              ))}
-              <Button
-                size="sm"
-                as="link"
-                href="/register"
-                variant="primary"
-                className="w-fit"
-              >
-                Get Started
-              </Button>
-            </div>
-          </div>
-        )}
+            </li>
+          ))}
+        </ul>
       </div>
-    </nav>
+      <div className="navbar-end">
+        <Link href="/register" className="btn btn-primary hidden lg:flex">
+          Get Started
+        </Link>
+      </div>
+    </div>
   );
 }

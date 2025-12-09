@@ -1,5 +1,6 @@
 import Navigation from "@/components/ui/Navigation";
-import Footer from "@/components/marketing/Footer";
+import Footer from "@/app/(marketing)/components/Footer";
+import Hero from "@/app/(marketing)/components/Hero";
 
 export default function MarketingLayout({
   children,
@@ -9,7 +10,8 @@ export default function MarketingLayout({
   return (
     <>
       <Navigation />
-      <main className="container-full flex flex-col">{children}</main>
+      <Hero />
+      <main className="flex flex-col container mx-auto px-5">{children}</main>
       <Footer />
     </>
   );
