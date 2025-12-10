@@ -10,7 +10,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/ThemeToggle/ThemeToggle";
 import classes from "./style.module.css";
 import Link from "next/link";
 import { appConfig } from "@/config/app";

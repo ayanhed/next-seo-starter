@@ -6,7 +6,7 @@ import {
   useComputedColorScheme,
 } from "@mantine/core";
 import { Sun, Moon } from "lucide-react";
-import classes from "./ThemeToggle.module.css";
+import classes from "./style.module.css";
 
 export function ThemeToggle() {
   const { setColorScheme } = useMantineColorScheme();
