@@ -1,7 +1,9 @@
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import { ColorSchemeScript } from "@mantine/core";
 import { appConfig } from "@/config/app";
+import JsonLd from "@/components/JsonLd";
+import { getBaseSchemas } from "@/lib/jsonld";
+import { ColorSchemeScript } from "@mantine/core";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import Providers from "./providers";
@@ -68,6 +70,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <JsonLd data={getBaseSchemas()} />
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
       <body className={`${geistMono.variable} ${inter.variable}`}>

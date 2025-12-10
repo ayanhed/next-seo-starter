@@ -33,7 +33,7 @@ const primaryColor: MantineColorsTuple = [
   "#e6ccff", // 1
   "#d4b3ff", // 2
   "#c299ff", // 3
-  "#ad46ff", // 4 - appConfig.theme.primary (main brand color)
+  appConfig.theme.primary, // 4 - appConfig.theme.primary (main brand color)
   "#9c2eff", // 5 - default shade
   "#8b16ff", // 6
   "#7a00ff", // 7

@@ -1,7 +1,4 @@
-export interface BaseSchema {
-  "@context": string;
-  "@type": string;
-}
+import { BaseSchema } from "@/lib/jsonld";
 
 interface JsonLdProps {
   data: BaseSchema | BaseSchema[];

@@ -8,7 +8,7 @@ import { useCallback } from "react";
  * Provides easy access to color scheme and toggle functionality
  */
 export function useTheme() {
-  const { setColorScheme, colorScheme } = useMantineColorScheme();
+  const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });

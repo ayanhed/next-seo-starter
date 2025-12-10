@@ -30,11 +30,11 @@ export default function Navigation() {
   };
 
   const navLinks = [
-    { label: "Stack", href: "#services" },
-    { label: "Workflow", href: "#how-it-works" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Paths", href: "#pricing" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Stack", href: "/#services" },
+    { label: "Workflow", href: "/#how-it-works" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Paths", href: "/#pricing" },
+    { label: "FAQ", href: "/#faq" },
   ];
 
   return (

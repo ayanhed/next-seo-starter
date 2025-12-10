@@ -41,7 +41,8 @@ A batteries-included Next.js 15 (React 19) template with a Mantine-powered UI ki
 ## Usage notes
 
 - Update `src/config/app.ts` once and every metadata surface (layout, sitemap, manifest, social tags) stays in sync.
-- Marketing UI lives under `src/components/marketing` and powers the landing page in `src/app/(marketing)`.
+- Structured data: `src/app/layout.tsx` injects base `Organization` + `WebSite` JSON-LD. Add page-specific schemas with `<JsonLd data={createWebPage(...)}` or the helpers in `src/lib/jsonld.ts` (e.g., `getHomePageSchemas({ faqs })` to mirror your FAQ content).
+- Marketing UI lives under `src/app/(public)/components` and powers the landing page in `src/app/(public)`.
 - Auth routes (`/login`, `/register`) are client components using `authClient`; the dashboard route group pulls the active session on the server and is also protected via `middleware.ts`.
 - Service worker code is in `src/app/sw.ts`. It’s injected during `next build` via Serwist and precaches the offline page. Make edits there if you need custom caching.
 - PostHog only initializes when `NEXT_PUBLIC_POSTHOG_KEY` is set; requests are proxied through `/ingest` via `next.config.ts`.
@@ -55,8 +56,7 @@ A batteries-included Next.js 15 (React 19) template with a Mantine-powered UI ki
 
 ## Project layout
 
-- `src/app/(marketing)` – Landing page composed of Hero, Benefits, Pricing, Testimonials, FAQ, and CTA sections.
-- `src/app/(auth)` – Login/Register forms with Better Auth client helpers.
+- `src/app/(public)` – Landing page composed of Hero, Benefits, Pricing, Testimonials, FAQ, and CTA sections plus auth flows.
 - `src/app/(main)/dashboard` – Example protected route; pulled session is rendered server-side.
 - `src/components/ui` – Reusable primitives (buttons, cards, forms, layout helpers).
 - `src/components/JsonLd.tsx` + `src/lib/jsonld.ts` – Drop-in helpers for structured data.

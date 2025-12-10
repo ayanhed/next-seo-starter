@@ -79,7 +79,7 @@ export default function Testimonials() {
                     ))}
                   </Group>
                   <Text size="sm" lh={1.7} c="dimmed">
-                    "{testimonial.content}"
+                    &ldquo;{testimonial.content}&rdquo;
                   </Text>
                   <Group gap="sm" mt="auto">
                     <Avatar color="blue" radius="xl" size="md">
