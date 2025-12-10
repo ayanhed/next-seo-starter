@@ -30,10 +30,10 @@ export default function Navigation() {
   };
 
   const navLinks = [
-    { label: "Services", href: "#services" },
-    { label: "How it works", href: "#how-it-works" },
+    { label: "Stack", href: "#services" },
+    { label: "Workflow", href: "#how-it-works" },
     { label: "Testimonials", href: "#testimonials" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Paths", href: "#pricing" },
     { label: "FAQ", href: "#faq" },
   ];
 
@@ -70,7 +70,7 @@ export default function Navigation() {
           <Group visibleFrom="sm" gap="sm">
             <ThemeToggle />
             <Button onClick={() => router.push("/login")} variant="gradient">
-              Get Started
+              Open demo
             </Button>
           </Group>
 
@@ -113,7 +113,7 @@ export default function Navigation() {
               variant="gradient"
               fullWidth
             >
-              Get Started
+              Open demo
             </Button>
           </Group>
         </ScrollArea>

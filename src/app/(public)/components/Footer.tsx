@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import Link from "next/link";
 import {
   Container,
@@ -23,22 +21,38 @@ import { useState } from "react";
 
 const footerLinks = {
   product: [
-    { label: "Home", href: "/" },
-    { label: "Dashboard", href: "/dashboard" },
-    { label: "Features", href: "/#features" },
-    { label: "Pricing", href: "/#pricing" },
+    { label: "Home", href: "/", external: false },
+    { label: "Stack", href: "/#services", external: false },
+    { label: "Workflow", href: "/#how-it-works" },
+    { label: "Paths", href: "/#pricing", external: false },
   ],
-  company: [
-    { label: "About", href: "/about" },
-    { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/careers" },
-    { label: "Contact", href: "/contact" },
+  resources: [
+    { label: "Auth demo", href: "/login", external: false },
+    { label: "Dashboard", href: "/dashboard", external: false },
+    { label: "Offline fallback", href: "/offline", external: false },
+    { label: "Sitemap", href: "/sitemap.xml", external: false },
   ],
-  legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
-    { label: "License", href: "/license" },
+  code: [
+    {
+      label: "README",
+      href: "https://github.com/ayanhedayati/next-seo-starter#readme",
+      external: true,
+    },
+    {
+      label: "Metadata config",
+      href: "https://github.com/ayanhedayati/next-seo-starter/blob/main/src/config/app.ts",
+      external: true,
+    },
+    {
+      label: "Prisma schema",
+      href: "https://github.com/ayanhedayati/next-seo-starter/blob/main/prisma/schema.prisma",
+      external: true,
+    },
+    {
+      label: "Service worker",
+      href: "https://github.com/ayanhedayati/next-seo-starter/blob/main/src/app/sw.ts",
+      external: true,
+    },
   ],
 };
 
@@ -173,6 +187,8 @@ export default function Footer() {
                     key={link.label}
                     component={Link}
                     href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
                     size="sm"
                     c="dimmed"
                     underline="never"
@@ -187,17 +203,19 @@ export default function Footer() {
               </Stack>
             </Stack>
 
-            {/* Company Links */}
+            {/* Resource Links */}
             <Stack gap="md">
               <Text fw={600} size="sm" tt="uppercase" c="dark" lh={1}>
-                Company
+                Resources
               </Text>
               <Stack gap={rem(8)}>
-                {footerLinks.company.map((link) => (
+                {footerLinks.resources.map((link) => (
                   <Anchor
                     key={link.label}
                     component={Link}
                     href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
                     size="sm"
                     c="dimmed"
                     underline="never"
@@ -212,17 +230,19 @@ export default function Footer() {
               </Stack>
             </Stack>
 
-            {/* Legal Links */}
+            {/* Code Links */}
             <Stack gap="md">
               <Text fw={600} size="sm" tt="uppercase" c="dark" lh={1}>
-                Legal
+                Code
               </Text>
               <Stack gap={rem(8)}>
-                {footerLinks.legal.map((link) => (
+                {footerLinks.code.map((link) => (
                   <Anchor
                     key={link.label}
                     component={Link}
                     href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
                     size="sm"
                     c="dimmed"
                     underline="never"

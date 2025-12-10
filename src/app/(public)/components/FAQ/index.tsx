@@ -3,9 +3,6 @@
 import { Accordion, Container, Grid, Image, Title } from "@mantine/core";
 import classes from "./style.module.css";
 
-const placeholder =
-  "It can’t help but hear a pin drop from over half a mile away, so it lives deep in the mountains where there aren’t many people or Pokémon.";
-
 export default function FAQ() {
   return (
     <div className={classes.wrapper}>
@@ -31,30 +28,46 @@ export default function FAQ() {
             >
               <Accordion.Item className={classes.item} value="reset-password">
                 <Accordion.Control>
-                  How can I reset my password?
+                  How do I update SEO metadata and social tags?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  Edit <code>src/config/app.ts</code>. That single config feeds layouts, sitemap,
+                  robots.txt, manifest, and the JSON-LD helper so every metadata surface stays in
+                  sync.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="another-account">
                 <Accordion.Control>
-                  Can I create more that one account?
+                  Do I need Postgres and Better Auth to use this?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  The auth flows use Better Auth with Prisma and PostgreSQL out of the box. You can
+                  still use the marketing pages without a database, or swap the provider by updating
+                  the Prisma schema and env variables.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="newsletter">
                 <Accordion.Control>
-                  How can I subscribe to monthly newsletter?
+                  How do I disable analytics?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  PostHog only initializes when <code>NEXT_PUBLIC_POSTHOG_KEY</code> is set. Leave it
+                  empty and the instrumentation stays off; remove the proxy route in
+                  <code>next.config.ts</code> if you don&apos;t need it.
+                </Accordion.Panel>
               </Accordion.Item>
 
               <Accordion.Item className={classes.item} value="credit-card">
                 <Accordion.Control>
-                  Do you store credit card information securely?
+                  Is PWA/offline support available in development?
                 </Accordion.Control>
-                <Accordion.Panel>{placeholder}</Accordion.Panel>
+                <Accordion.Panel>
+                  The Serwist service worker is injected on <code>next build</code>. In production it
+                  precaches the offline page and enables navigation preload; during dev you can skip
+                  it and still build confidently.
+                </Accordion.Panel>
               </Accordion.Item>
             </Accordion>
           </Grid.Col>

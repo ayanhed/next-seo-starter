@@ -16,62 +16,101 @@ import {
 } from "@mantine/core";
 import classes from "./style.module.css";
 import { useRouter } from "next/navigation";
-const plans = [
+type PlanAction = "demo" | "guide" | "stack";
+
+type Plan = {
+  name: string;
+  priceLabel: string;
+  priceNote: string;
+  description: string;
+  features: string[];
+  popular: boolean;
+  ctaLabel: string;
+  action: PlanAction;
+};
+
+const plans: Plan[] = [
   {
-    name: "Starter",
-    price: 100,
-    description: "Perfect for individuals getting started",
+    name: "Prototype quickly",
+    priceLabel: "Free, MIT license",
+    priceNote: "Clone the repo or use the template.",
+    description: "Spin up a marketing page plus auth flows without touching boilerplate.",
     features: [
-      "Feature 1 goes here",
-      "Feature 2 goes here",
-      "Feature 3 goes here",
-      "Feature 4 goes here",
-      "Feature 5 goes here",
+      "Next.js 15 + React 19 with Mantine theming and UI primitives",
+      "Reusable hero, benefits, FAQ, and CTA sections you can restyle",
+      "Auth routes powered by Better Auth client helpers",
+      "Protected dashboard route group already wired",
+      "HTTPS dev server plus lint/type check scripts",
     ],
     popular: false,
+    ctaLabel: "Open the demo",
+    action: "demo",
   },
   {
-    name: "Pro",
-    price: 200,
-    description: "Most popular choice for growing teams",
+    name: "Launch SEO-first",
+    priceLabel: "Production defaults included",
+    priceNote: "Zero subscriptions—just best practices.",
+    description: "Ship a polished experience with metadata, analytics, and offline handled.",
     features: [
-      "Everything in Starter plus",
-      "Advanced Feature 1",
-      "Advanced Feature 2",
-      "Advanced Feature 3",
-      "Priority Support",
+      "One app config keeps metadata, OG tags, sitemap, robots, and manifest in sync",
+      "JSON-LD helpers for structured data on landing pages",
+      "Serwist service worker with offline fallback and navigation preload",
+      "Optional PostHog analytics proxied through /ingest",
+      "Marketing, auth, and dashboard route groups to keep things organized",
     ],
     popular: true,
+    ctaLabel: "View setup steps",
+    action: "guide",
   },
   {
-    name: "Advanced",
-    price: 300,
-    description: "For large teams and enterprises",
+    name: "Scale & extend",
+    priceLabel: "Bring your own data",
+    priceNote: "Swap services or extend Prisma easily.",
+    description: "Keep the structure, upgrade the stack, and tailor it to your product.",
     features: [
-      "Everything in Pro plus",
-      "Enterprise Feature 1",
-      "Enterprise Feature 2",
-      "Enterprise Feature 3",
-      "Dedicated Support",
+      "Prisma schema ready to extend with npm run db:migrate",
+      "Session-aware middleware protecting server-rendered dashboard pages",
+      "Mantine theme tokens for brand colors, fonts, and radius",
+      "PostgreSQL connection string driven by .env.local",
+      "Deployment-friendly defaults for Vercel or Netlify",
     ],
     popular: false,
+    ctaLabel: "Check the stack",
+    action: "stack",
   },
 ];
 
 export default function Pricing() {
   const router = useRouter();
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleAction = (action: PlanAction) => {
+    if (action === "demo") {
+      router.push("/login");
+      return;
+    }
+    if (action === "guide") {
+      scrollToSection("how-it-works");
+      return;
+    }
+    scrollToSection("services");
+  };
 
   return (
     <Box id="pricing" className={classes.wrapper}>
       <Container size="xl" py={{ base: 60, md: 100 }}>
         <Stack gap="xl" align="center">
           <Title className={classes.title} order={2} ta="center">
-            Pricing - Why to buy/How it helps
+            Open source, zero lock-in
           </Title>
           <Text c="dimmed" size="lg" ta="center" maw={700}>
-            Help users choose by showcasing difference in plans. Don&apos;t hide
-            anything. Add CTAs to all plans. Highlight the middle plan, guide
-            users.
+            Next SEO Starter is free to use and built for real launches. Choose how you want to
+            start and follow the path that fits your workflow.
           </Text>
           <SimpleGrid
             cols={{ base: 1, md: 3 }}
@@ -110,10 +149,10 @@ export default function Pricing() {
                   </Stack>
                   <Box>
                     <Text size="36px" fw={700} lh={1}>
-                      ${plan.price}
-                      <Text component="span" size="md" fw={400} c="dimmed">
-                        /month
-                      </Text>
+                      {plan.priceLabel}
+                    </Text>
+                    <Text size="sm" c="dimmed">
+                      {plan.priceNote}
                     </Text>
                   </Box>
                   <Button
@@ -121,9 +160,9 @@ export default function Pricing() {
                     size="lg"
                     variant={plan.popular ? "gradient" : "outline"}
                     radius="md"
-                    onClick={() => router.push("/login")}
+                    onClick={() => handleAction(plan.action)}
                   >
-                    Get Started
+                    {plan.ctaLabel}
                   </Button>
                   <List
                     spacing="sm"

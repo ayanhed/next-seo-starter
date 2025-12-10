@@ -39,22 +39,22 @@ export default function Hero() {
                 color="primary"
                 size="lg"
               >
-                1200+ active users
+                Next.js 15 + React 19 ready
               </Badge>
             </Group>
 
             {/* Title */}
             <Title className={classes.title} order={1}>
-              Solve Your Biggest Problem with{" "}
-              <span className={classes.highlight}>Our Solution</span>
+              Ship SEO-first apps faster with{" "}
+              <span className={classes.highlight}>Next SEO Starter</span>
             </Title>
 
             {/* Description */}
             <Text c="dimmed" size="lg" className={classes.description}>
-              Build fully functional accessible web applications faster than
-              ever. Our platform includes everything you need to streamline your
-              workflow and boost productivity. Join thousands of satisfied
-              customers today.
+              A batteries-included Next.js 15 template with Mantine UI, Better
+              Auth + Prisma, SEO metadata helpers, PWA/offline support, and
+              optional PostHog analytics. Skip boilerplate and start shipping a
+              polished marketing site, auth flow, and dashboard on day one.
             </Text>
 
             {/* CTAs */}
@@ -66,15 +66,15 @@ export default function Hero() {
                 rightSection={<ArrowRight size={18} />}
                 onClick={() => router.push("/login")}
               >
-                Get Started
+                Open the demo
               </Button>
               <Button
                 size="lg"
                 radius="md"
                 variant="outline"
-                onClick={() => scrollToSection("how-it-works")}
+                onClick={() => scrollToSection("services")}
               >
-                Learn More
+                See the stack
               </Button>
             </Group>
           </Stack>

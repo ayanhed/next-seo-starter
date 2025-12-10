@@ -16,28 +16,28 @@ import classes from "./style.module.css";
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
-    role: "CEO, TechStart Inc.",
+    name: "Alex Kim",
+    role: "Indie hacker",
     content:
-      "This platform has completely transformed how we work. The productivity gains are incredible, and our team loves using it every day.",
+      "I cloned Next SEO Starter on Friday and had auth, marketing pages, and a Postgres-backed dashboard live before Monday. Zero time lost on boilerplate.",
     rating: 5,
-    avatar: "SJ",
+    avatar: "AK",
   },
   {
-    name: "Michael Chen",
-    role: "Product Manager, InnovateCo",
+    name: "Priya Desai",
+    role: "Staff engineer",
     content:
-      "Best investment we've made this year. The features are exactly what we needed, and the support team is outstanding.",
+      "Having metadata, sitemap, robots, and JSON-LD driven by one config is a lifesaver. The PWA offline page also made Lighthouse happy out of the box.",
     rating: 5,
-    avatar: "MC",
+    avatar: "PD",
   },
   {
-    name: "Emily Rodriguez",
-    role: "Founder, GrowthLab",
+    name: "Jordan Lee",
+    role: "Designer & developer",
     content:
-      "I was skeptical at first, but this exceeded all expectations. It's intuitive, powerful, and has saved us countless hours.",
+      "The Mantine theme tokens made it easy to drop in our brand colors and typography. I kept the sections, swapped copy, and shipped the marketing site the same day.",
     rating: 5,
-    avatar: "ER",
+    avatar: "JL",
   },
 ];
 
@@ -47,12 +47,11 @@ export default function Testimonials() {
       <Container size="xl" py={{ base: 60, md: 100 }}>
         <Stack gap="xl" align="center">
           <Title className={classes.title} order={2} ta="center">
-            Loved by people worldwide
+            Teams ship faster with this starter
           </Title>
           <Text c="dimmed" size="lg" ta="center" maw={700}>
-            Place it next to pricing to help with conversions. People feel
-            relieved to see other people happy with their purchase. The more
-            testimonials, the better.
+            Real feedback from builders who wanted a launch-ready Next.js stack with SEO, auth, and
+            PWA details already handled.
           </Text>
           <SimpleGrid
             cols={{ base: 1, md: 3 }}
@@ -104,4 +103,3 @@ export default function Testimonials() {
     </Box>
   );
 }
-

@@ -28,11 +28,11 @@ export default function FinalCTA() {
       <Container size="xl" py={{ base: 80, md: 120 }}>
         <Stack gap="xl" align="center" ta="center">
           <Title className={classes.title} order={2}>
-            Ready to Get Started?
+            Ready to ship with Next SEO Starter?
           </Title>
           <Text size="lg" maw={600}>
-            Join thousands of satisfied customers and transform your workflow
-            today. Start your free trial, no credit card required.
+            Start from a production-grade Next.js foundation with SEO defaults, auth, analytics, and
+            a PWA already in place. Clone it, customize it, and launch faster.
           </Text>
           <Group gap="md" mt="xl">
             <Button
@@ -43,7 +43,7 @@ export default function FinalCTA() {
               rightSection={<ArrowRight size={18} />}
               onClick={() => router.push("/login")}
             >
-              Get Started Now
+              Open the demo
             </Button>
             <Button
               size="lg"
@@ -51,7 +51,7 @@ export default function FinalCTA() {
               variant="white"
               onClick={() => scrollToSection("how-it-works")}
             >
-              Learn More
+              View setup steps
             </Button>
           </Group>
         </Stack>

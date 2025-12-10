@@ -16,23 +16,20 @@ const steps = [
   {
     icon: UserPlus,
     step: 1,
-    title: "Sign Up",
-    description:
-      "Create your account in less than 2 minutes. No credit card required to get started.",
+    title: "Clone & install",
+    description: "Use the template or clone the repo, then run npm install to pull the full stack.",
   },
   {
     icon: Settings,
     step: 2,
-    title: "Configure",
-    description:
-      "Set up your workspace and customize settings to match your workflow preferences.",
+    title: "Configure env & database",
+    description: "Add .env.local (URLs, PostHog key if needed, DATABASE_URL) and run npm run db:push.",
   },
   {
     icon: Rocket,
     step: 3,
-    title: "Launch",
-    description:
-      "Start using the platform immediately. Our intuitive interface makes it easy to get started.",
+    title: "Run & ship",
+    description: "Start with npm run dev (HTTPS), tweak marketing sections, then run npm run check to verify.",
   },
 ];
 
@@ -61,10 +58,11 @@ export default function HowItWorks() {
       <Container size="xl" py={{ base: 60, md: 100 }}>
         <Stack gap="xl" align="center">
           <Title className={classes.title} order={2} ta="center">
-            How it works?
+            From clone to deploy in 3 steps
           </Title>
           <Text c="dimmed" size="lg" ta="center" maw={600}>
-            Explain how to get started with the product in 3 simple steps.
+            Next SEO Starter is designed to feel ready on day one: install it, set env vars, and
+            start building your product instead of wiring boilerplate.
           </Text>
           <SimpleGrid
             cols={{ base: 1, md: 3 }}

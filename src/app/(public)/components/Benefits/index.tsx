@@ -15,44 +15,44 @@ import classes from "./style.module.css";
 const benefits = [
   {
     icon: Zap,
-    title: "Lightning Fast",
+    title: "Frictionless DX",
     description:
-      "Experience blazing-fast performance that keeps your workflow smooth and efficient.",
+      "HTTPS dev server, typed routes, and a clear layout for marketing, auth, and dashboard pages.",
     color: "primary",
   },
   {
     icon: Shield,
-    title: "Secure & Reliable",
+    title: "Auth & data ready",
     description:
-      "Enterprise-grade security with 99.9% uptime guarantee. Your data is always protected.",
+      "Better Auth + Prisma with session-aware middleware and PostgreSQL schema already in place.",
     color: "secondary",
   },
   {
     icon: TrendingUp,
-    title: "Scale Easily",
+    title: "Analytics optional",
     description:
-      "Grow your business without limits. Our platform scales with you effortlessly.",
+      "PostHog instrumentation is wired up and proxied through /ingest—leave the key empty to disable.",
     color: "primary",
   },
   {
     icon: Users,
-    title: "Team Collaboration",
+    title: "Marketing + app scaffold",
     description:
-      "Work seamlessly with your team. Real-time collaboration tools built for productivity.",
+      "Reusable Mantine marketing sections, auth flows, and a protected dashboard route group to extend.",
     color: "secondary",
   },
   {
     icon: Clock,
-    title: "Save Time",
+    title: "Offline-friendly",
     description:
-      "Automate repetitive tasks and focus on what matters. Save hours every week.",
+      "Serwist-powered PWA with navigation preload and an offline fallback page ready for production.",
     color: "primary",
   },
   {
     icon: Sparkles,
-    title: "Innovation First",
+    title: "SEO-first defaults",
     description:
-      "Cutting-edge features and regular updates. Stay ahead with the latest technology.",
+      "One config keeps metadata, sitemap, robots.txt, manifest, and JSON-LD helpers perfectly in sync.",
     color: "secondary",
   },
 ];
@@ -78,11 +78,11 @@ export default function Benefits() {
     <Container size="xl" py={{ base: 60, md: 100 }}>
       <Stack gap="xl" align="center">
         <Title className={classes.title} order={2} ta="center">
-          Benefits
+          Built to remove the boring parts
         </Title>
         <Text c="dimmed" size="lg" ta="center" maw={600}>
-          Focus on how it helps users instead of what features it has. We prefer
-          bento boxes for these sections.
+          Next SEO Starter gives you production defaults for marketing, auth, and the dashboard so
+          you can focus on the product you&apos;re building.
         </Text>
         <SimpleGrid
           cols={{ base: 1, sm: 2, md: 3 }}
