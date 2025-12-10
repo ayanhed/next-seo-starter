@@ -14,6 +14,7 @@ export type AppConfig = {
       twitter?: string;
       github?: string;
       linkedin?: string;
+      instagram?: string;
     };
   };
   theme: {
@@ -36,7 +37,12 @@ export const appConfig: AppConfig = {
   },
   branding: {
     defaultOgImage: "/opengraph-image.jpg",
-    social: {},
+    social: {
+      twitter: "https://twitter.com/ayanhedayati",
+      github: "https://github.com/ayanhedayati",
+      linkedin: "https://www.linkedin.com/in/ayanhedayati/",
+      instagram: "https://www.instagram.com/ayanhedayati/",
+    },
   },
   theme: {
     primary: "#ad46ff",

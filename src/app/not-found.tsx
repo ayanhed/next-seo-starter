@@ -1,38 +1,30 @@
+import { Button, Center, Stack } from "@mantine/core";
 import React from "react";
-import Heading from "@/components/ui/Heading";
-import Text from "@/components/ui/Text";
-import Button from "@/components/ui/Button";
-import Animate from "@/components/ui/Animate";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Text } from "@mantine/core";
 
 export default function NotFound() {
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="text-center max-w-xl mx-auto">
-        <Animate type="fade" duration={0.4}>
-          <Heading level={1} lead={1}>
-            404
-          </Heading>
-          <Heading level={6}>Page not found</Heading>
-
-          <Text size="lg" variant="muted" align="center" className="max-w-md">
-            The page you are looking for does not exist.
-          </Text>
-
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <Button
-              as="link"
-              href="/"
-              variant="ghost"
-              size="lg"
-              icon={ArrowLeft}
-              iconPosition="left"
-            >
-              Back to home
-            </Button>
-          </div>
-        </Animate>
-      </div>
-    </div>
+    <Center mih="100vh" px="md">
+      <Stack gap="md" align="center">
+        <Text fw="semibold" size="lg">
+          404
+        </Text>
+        <Text variant="muted">Page not found</Text>
+        <Text variant="muted">
+          The page you are looking for does not exist.
+        </Text>
+        <Button
+          component={Link}
+          href="/"
+          variant="ghost"
+          size="lg"
+          leftSection={<ArrowLeft size={16} />}
+        >
+          Back to home
+        </Button>
+      </Stack>
+    </Center>
   );
 }

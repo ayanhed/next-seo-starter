@@ -1,0 +1,47 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family: var(--mantine-font-family);
+  font-size: 48px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: 36px;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: 28px;
+  }
+}
+
+.highlight {
+  background: linear-gradient(
+    135deg,
+    var(--mantine-primary-color-6),
+    var(--mantine-primary-color-6)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: 16px;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}

@@ -1,0 +1,35 @@
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: var(--mantine-spacing-md);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: 32px;
+  }
+}
+
+.grid {
+  width: 100%;
+}
+
+.bentoBox {
+  padding: var(--mantine-spacing-xl);
+  border-radius: var(--mantine-radius-lg);
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-7)
+  );
+  border: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-5));
+  transition: all 0.3s ease;
+  height: 100%;
+
+  @mixin hover {
+    transform: translateY(-4px);
+    box-shadow: var(--mantine-shadow-md);
+    border-color: light-dark(
+      var(--mantine-primary-color-3),
+      var(--mantine-primary-color-7)
+    );
+  }
+}

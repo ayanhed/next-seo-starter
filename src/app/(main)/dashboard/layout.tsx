@@ -1,6 +1,8 @@
+import { Center } from "@mantine/core";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import AppShellLayout from "@/components/AppShellLayout";
 
 export default async function DashboardLayout({
   children,
@@ -17,8 +19,10 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="flex items-center justify-center pt-10 min-h-screen">
-      {children}
-    </div>
+    <AppShellLayout>
+      <Center mih="100vh" pt="lg">
+        {children}
+      </Center>
+    </AppShellLayout>
   );
 }

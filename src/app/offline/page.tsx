@@ -1,5 +1,5 @@
+import { Center, ThemeIcon, Stack, Title, Text, Box } from "@mantine/core";
 import { Metadata } from "next";
-import { Section, Heading, Text, Stack } from "@/components/ui";
 import { WifiOff } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -9,25 +9,22 @@ export const metadata: Metadata = {
 
 export default function OfflinePage() {
   return (
-    <Section
-      spacing="lg"
-      className="min-h-screen flex items-center justify-center text-center"
-    >
-      <Stack spacing="lg" className="text-center max-w-md mx-auto">
-        <div className="flex justify-center mb-4 w-full">
-          <div className="w-16 h-16 bg-warning/20 rounded-full flex items-center justify-center">
-            <WifiOff className="w-8 h-8 text-warning" />
-          </div>
-        </div>
+    <Box>
+      <Center mih="80vh" px="md">
+        <Stack gap="lg" align="center" style={{ maxWidth: 420 }}>
+          <ThemeIcon color="yellow" size={72} radius="xl" variant="light">
+            <WifiOff size={32} />
+          </ThemeIcon>
 
-        <Heading level={1} className="mb-4 w-full">
-          You&apos;re Offline
-        </Heading>
+          <Title order={1} ta="center">
+            You&apos;re Offline
+          </Title>
 
-        <Text size="lg" variant="muted" align="center" className="w-full">
-          Check your internet connection and try again.
-        </Text>
-      </Stack>
-    </Section>
+          <Text size="lg" c="dimmed" ta="center">
+            Check your internet connection and try again.
+          </Text>
+        </Stack>
+      </Center>
+    </Box>
   );
 }

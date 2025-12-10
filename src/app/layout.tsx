@@ -1,3 +1,6 @@
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import { ColorSchemeScript } from "@mantine/core";
 import { appConfig } from "@/config/app";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
@@ -61,13 +64,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="scroll-smooth"
-      data-theme="mytheme"
+      style={{ scrollBehavior: "smooth" }}
       suppressHydrationWarning
     >
-      <body
-        className={`${geistMono.variable} ${inter.variable} antialiased bg-base-100 text-base-content`}
-      >
+      <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
+      </head>
+      <body className={`${geistMono.variable} ${inter.variable}`}>
         <Providers>{children}</Providers>
       </body>
     </html>

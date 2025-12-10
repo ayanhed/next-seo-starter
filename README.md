@@ -1,11 +1,11 @@
 # Next SEO Starter
 
-A batteries-included Next.js 15 (React 19) template with Tailwind CSS 4, Prisma + Better Auth, SEO-ready metadata helpers, offline-first PWA setup, and PostHog analytics wiring. Use it as a launchpad for SaaS dashboards, marketing sites, or anything that needs fast iteration with best-practice defaults.
+A batteries-included Next.js 15 (React 19) template with a Mantine-powered UI kit, Prisma + Better Auth, SEO-ready metadata helpers, offline-first PWA setup, and PostHog analytics wiring. Use it as a launchpad for SaaS dashboards, marketing sites, or anything that needs fast iteration with best-practice defaults.
 
 ## What's inside
 
 - **Modern stack**: TypeScript, App Router, route groups for marketing, auth, and the protected dashboard.
-- **Design system**: Tailwind CSS 4 with semantic tokens in `globals.css` plus a small UI kit (`src/components/ui`).
+- **Design system**: Mantine theming with reusable UI primitives in `src/components/ui`.
 - **Auth & data**: Better Auth hooked up to Prisma/Postgres, session-aware middleware, and example login/register flows.
 - **SEO defaults**: Centralized metadata config (`src/config/app.ts`), JSON-LD helper, sitemap/robots/manifest wired to the config.
 - **DX helpers**: PostHog instrumentation (opt-in), HTTPS dev server, reusable marketing sections, and structured project layout.
@@ -71,7 +71,7 @@ A batteries-included Next.js 15 (React 19) template with Tailwind CSS 4, Prisma 
 
 ## Customize it
 
-1. Edit colors/spacing in `src/app/globals.css` and extend the tokens or UI components as needed.
+1. Adjust Mantine theme tokens in `src/app/providers.tsx` (colors, radius, fonts) and extend the UI components as needed.
 2. Swap copy, images, and sections under `src/components/marketing` + `public/`.
 3. Add new authenticated routes under `src/app/(main)`; reuse the dashboard layout pattern for access control.
 4. Extend the Prisma schema, run `npm run db:migrate`, and query through `@/lib/prisma`.

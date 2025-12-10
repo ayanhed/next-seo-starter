@@ -1,0 +1,39 @@
+.wrapper {
+  background: linear-gradient(
+    135deg,
+    var(--mantine-primary-color-9),
+    var(--mantine-primary-color-4)
+  );
+  color: var(--mantine-color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--mantine-color-white);
+  margin-bottom: var(--mantine-spacing-md);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: 36px;
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: 28px;
+  }
+}
+
+.wrapper :global(.mantine-Text-root) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.wrapper :global(.mantine-Button-outline) {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--mantine-color-white);
+
+  @mixin hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--mantine-color-white);
+  }
+}

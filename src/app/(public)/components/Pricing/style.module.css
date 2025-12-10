@@ -1,0 +1,23 @@
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: var(--mantine-spacing-md);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    font-size: 32px;
+  }
+}
+
+.grid {
+  width: 100%;
+  margin-top: var(--mantine-spacing-xl);
+}
+
+.pricingCard.popular {
+  border: 2px solid var(--mantine-primary-color-4);
+  background-color: var(--mantine-primary-color-0);
+  @mixin hover {
+    box-shadow: 0 0 0 1px var(--mantine-primary-color-0),
+      var(--mantine-shadow-xl);
+  }
+}
