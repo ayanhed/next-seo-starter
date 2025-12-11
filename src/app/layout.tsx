@@ -1,6 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import { appConfig } from "@/config/app";
+import { appConfig, getCanonicalUrl } from "@/config/app";
 import JsonLd from "@/components/JsonLd";
 import { getBaseSchemas } from "@/lib/jsonld";
 import { ColorSchemeScript } from "@mantine/core";
@@ -32,9 +32,27 @@ export const metadata: Metadata = {
   openGraph: {
     title: title,
     description: appConfig.app.description,
+    url: appConfig.app.baseUrl,
+    siteName: appConfig.app.name,
     type: "website",
+    locale: appConfig.app.locale,
+    images: [
+      {
+        url: getCanonicalUrl(appConfig.branding.defaultOgImage),
+        width: 1200,
+        height: 630,
+        alt: `${appConfig.app.name} social preview`,
+      },
+    ],
   },
   applicationName: appConfig.app.name,
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: appConfig.app.description,
+    images: [getCanonicalUrl(appConfig.branding.defaultOgImage)],
+    creator: appConfig.branding.social?.twitter,
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

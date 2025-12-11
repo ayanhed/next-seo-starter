@@ -2,16 +2,14 @@
 
 import { AppShell, rem } from "@mantine/core";
 import Navigation from "../app/(public)/components/Navigation";
-import { useHeadroom } from "@mantine/hooks";
 
 export default function AppShellLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pinned = useHeadroom({ fixedAt: 120 });
   return (
-    <AppShell header={{ height: 68, collapsed: !pinned, offset: false }}>
+    <AppShell header={{ height: 68 }}>
       <AppShell.Header>
         <Navigation />
       </AppShell.Header>

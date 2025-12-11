@@ -27,13 +27,22 @@ const envSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
 
 export const appConfig: AppConfig = {
   app: {
-    name: process.env.NEXT_PUBLIC_APP_NAME || "[APP_NAME]",
-    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "[APP_DESCRIPTION]",
-    keywords: ["[APP_KEYWORDS]"],
-    baseUrl: envSiteUrl || "https://localhost:3000",
-    locale: "en-GB",
-    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "[APP_AUTHOR]" }],
-    categories: ["[APP_CATEGORIES]"],
+    name: process.env.NEXT_PUBLIC_APP_NAME || "Next SEO Starter",
+    description:
+      process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+      "Ship SEO-ready Next.js 15 apps faster with structured data, auth, and PWA defaults.",
+    keywords: [
+      "next.js seo template",
+      "structured data",
+      "pwa starter",
+      "mantine ui",
+      "better auth",
+      "typescript",
+    ],
+    baseUrl: envSiteUrl || "https://next-seo-starter.vercel.app",
+    locale: "en-US",
+    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "Next SEO Starter Team" }],
+    categories: ["Software Development", "Web Applications", "SaaS"],
   },
   branding: {
     defaultOgImage: "/opengraph-image.jpg",
