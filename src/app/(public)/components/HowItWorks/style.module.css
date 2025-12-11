@@ -10,7 +10,7 @@
   font-weight: 700;
   margin-bottom: var(--mantine-spacing-md);
 
-  @media (max-width: $mantine-breakpoint-md) {
+  @media (max-width: var(--mantine-breakpoint-md)) {
     font-size: 32px;
   }
 }

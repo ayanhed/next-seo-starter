@@ -15,11 +15,11 @@
   color: var(--mantine-color-white);
   margin-bottom: var(--mantine-spacing-md);
 
-  @media (max-width: $mantine-breakpoint-md) {
+  @media (max-width: var(--mantine-breakpoint-md)) {
     font-size: 36px;
   }
 
-  @media (max-width: $mantine-breakpoint-xs) {
+  @media (max-width: var(--mantine-breakpoint-xs)) {
     font-size: 28px;
   }
 }
