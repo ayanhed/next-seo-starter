@@ -53,15 +53,7 @@ export default function Navigation() {
 
           <Group h="100%" gap={0} visibleFrom="sm">
             {navLinks.map((link) => (
-              <Anchor
-                key={link.href}
-                href={link.href}
-                className={classes.link}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href.substring(1));
-                }}
-              >
+              <Anchor key={link.href} href={link.href} className={classes.link}>
                 {link.label}
               </Anchor>
             ))}
@@ -93,15 +85,7 @@ export default function Navigation() {
       >
         <ScrollArea h="calc(100vh - 80px)" mx="-md">
           {navLinks.map((link) => (
-            <Anchor
-              key={link.href}
-              href={link.href}
-              className={classes.link}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(link.href.substring(1));
-              }}
-            >
+            <Anchor key={link.href} href={link.href} className={classes.link}>
               {link.label}
             </Anchor>
           ))}

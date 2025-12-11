@@ -3,6 +3,7 @@
 import { FAQItem } from "@/lib/jsonld";
 import { Accordion, Container, Grid, Image, Title } from "@mantine/core";
 import classes from "./style.module.css";
+import React from "react";
 
 type FAQEntry = FAQItem & { highlights?: string[] };
 
@@ -35,14 +36,14 @@ export const faqItems: FAQEntry[] = [
 const renderAnswer = (item: FAQEntry) => {
   if (!item.highlights?.length) return item.answer;
 
-  return item.highlights.reduce<Array<string | JSX.Element>>(
+  return item.highlights.reduce<Array<string | React.ReactNode>>(
     (parts, token) =>
       parts.flatMap((part, index) => {
         if (typeof part !== "string") return part;
 
         const split = part.split(token);
         return split.flatMap((chunk, splitIndex) => {
-          const elements: Array<string | JSX.Element> = [];
+          const elements: Array<string | React.ReactNode> = [];
           if (chunk) elements.push(chunk);
           if (splitIndex < split.length - 1) {
             elements.push(
@@ -58,9 +59,9 @@ const renderAnswer = (item: FAQEntry) => {
 
 export default function FAQ() {
   return (
-    <div className={classes.wrapper}>
+    <div className={classes.wrapper} id="faq">
       <Container size="lg">
-        <Grid id="faq-grid" gutter={50}>
+        <Grid gutter={50}>
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Image
               src="/images/faq.svg"
