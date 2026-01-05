@@ -1,4 +1,16 @@
-import { createTheme, MantineColorsTuple } from "@mantine/core";
+import {
+  createTheme,
+  MantineColorsTuple,
+  Button,
+  Card,
+  Paper,
+  Input,
+  TextInput,
+  Textarea,
+  Select,
+  Badge,
+  Anchor,
+} from "@mantine/core";
 import { appConfig } from "./app";
 
 /**
@@ -54,14 +66,21 @@ const secondaryColor: MantineColorsTuple = [
   "#0056ff", // 9 - darkest
 ];
 
-// Create a comprehensive theme
+// Create a comprehensive theme using Mantine best practices
 export const theme = createTheme({
   // Primary color from app config
   primaryColor: "primary",
+  // Different shades for light/dark modes for optimal contrast
+  primaryShade: { light: 5, dark: 4 },
   colors: {
     primary: primaryColor,
     secondary: secondaryColor,
   },
+
+  // Auto contrast for better accessibility (v7.4+)
+  // Automatically adjusts text color based on background luminance
+  autoContrast: true,
+  luminanceThreshold: 0.3,
 
   // Typography
   fontFamily: "var(--font-inter), system-ui, -apple-system, sans-serif",
@@ -125,7 +144,7 @@ export const theme = createTheme({
   white: "#ffffff",
   black: "#000000",
 
-  // Default props for components
+  // Default gradient for buttons and other components
   defaultGradient: {
     from: "primary",
     to: "secondary",
@@ -135,50 +154,56 @@ export const theme = createTheme({
   // Focus ring styles
   focusRing: "auto",
 
-  // Other component defaults
+  // Component defaults using the extend pattern (Mantine v7+ best practice)
+  // This provides better type safety and allows for dynamic styles
   components: {
-    Button: {
+    Button: Button.extend({
       defaultProps: {
         radius: "md",
       },
-    },
-    Card: {
-      defaultProps: {
-        radius: "md",
-        shadow: "sm",
-      },
-    },
-    Paper: {
+    }),
+    Card: Card.extend({
       defaultProps: {
         radius: "md",
         shadow: "sm",
       },
-    },
-    Input: {
+    }),
+    Paper: Paper.extend({
+      defaultProps: {
+        radius: "xl",
+        shadow: "sm",
+      },
+    }),
+    Input: Input.extend({
+      defaultProps: {
+        radius: "lg",
+      },
+    }),
+    TextInput: TextInput.extend({
+      defaultProps: {
+        radius: "lg",
+      },
+    }),
+    Textarea: Textarea.extend({
       defaultProps: {
         radius: "md",
       },
-    },
-    TextInput: {
+    }),
+    Select: Select.extend({
       defaultProps: {
         radius: "md",
       },
-    },
-    Textarea: {
+    }),
+    Badge: Badge.extend({
       defaultProps: {
         radius: "md",
       },
-    },
-    Select: {
+    }),
+    Anchor: Anchor.extend({
       defaultProps: {
-        radius: "md",
+        underline: "hover",
       },
-    },
-    Badge: {
-      defaultProps: {
-        radius: "md",
-      },
-    },
+    }),
   },
 });
 

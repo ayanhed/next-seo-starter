@@ -34,7 +34,8 @@ const plans: Plan[] = [
     name: "Prototype quickly",
     priceLabel: "Free, MIT license",
     priceNote: "Clone the repo or use the template.",
-    description: "Spin up a marketing page plus auth flows without touching boilerplate.",
+    description:
+      "Spin up a marketing page plus auth flows without touching boilerplate.",
     features: [
       "Next.js 15 + React 19 with Mantine theming and UI primitives",
       "Reusable hero, benefits, FAQ, and CTA sections you can restyle",
@@ -50,7 +51,8 @@ const plans: Plan[] = [
     name: "Launch SEO-first",
     priceLabel: "Production defaults included",
     priceNote: "Zero subscriptions—just best practices.",
-    description: "Ship a polished experience with metadata, analytics, and offline handled.",
+    description:
+      "Ship a polished experience with metadata, analytics, and offline handled.",
     features: [
       "One app config keeps metadata, OG tags, sitemap, robots, and manifest in sync",
       "JSON-LD helpers for structured data on landing pages",
@@ -66,7 +68,8 @@ const plans: Plan[] = [
     name: "Scale & extend",
     priceLabel: "Bring your own data",
     priceNote: "Swap services or extend Prisma easily.",
-    description: "Keep the structure, upgrade the stack, and tailor it to your product.",
+    description:
+      "Keep the structure, upgrade the stack, and tailor it to your product.",
     features: [
       "Prisma schema ready to extend with npm run db:migrate",
       "Session-aware middleware protecting server-rendered dashboard pages",
@@ -109,8 +112,8 @@ export default function Pricing() {
             Open source, zero lock-in
           </Title>
           <Text c="dimmed" size="lg" ta="center" maw={700}>
-            Next SEO Starter is free to use and built for real launches. Choose how you want to
-            start and follow the path that fits your workflow.
+            Next SEO Starter is free to use and built for real launches. Choose
+            how you want to start and follow the path that fits your workflow.
           </Text>
           <SimpleGrid
             cols={{ base: 1, md: 3 }}
@@ -125,7 +128,6 @@ export default function Pricing() {
                 }`}
                 shadow="md"
                 p="xl"
-                radius="lg"
                 withBorder
               >
                 <Stack gap="lg">
@@ -148,7 +150,7 @@ export default function Pricing() {
                     </Text>
                   </Stack>
                   <Box>
-                    <Text size="36px" fw={700} lh={1}>
+                    <Text size="lg" fw={700} lh={1}>
                       {plan.priceLabel}
                     </Text>
                     <Text size="sm" c="dimmed">
@@ -166,7 +168,8 @@ export default function Pricing() {
                   </Button>
                   <List
                     spacing="sm"
-                    size="sm"
+                    w="90%"
+                    size="xs"
                     icon={
                       <ThemeIcon color="primary" size={20} radius="xl">
                         <Check size={12} />

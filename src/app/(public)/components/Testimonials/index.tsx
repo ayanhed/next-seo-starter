@@ -50,8 +50,8 @@ export default function Testimonials() {
             Teams ship faster with this starter
           </Title>
           <Text c="dimmed" size="lg" ta="center" maw={700}>
-            Real feedback from builders who wanted a launch-ready Next.js stack with SEO, auth, and
-            PWA details already handled.
+            Real feedback from builders who wanted a launch-ready Next.js stack
+            with SEO, auth, and PWA details already handled.
           </Text>
           <SimpleGrid
             cols={{ base: 1, md: 3 }}
@@ -64,7 +64,6 @@ export default function Testimonials() {
                 className={classes.testimonialCard}
                 shadow="md"
                 p="xl"
-                radius="lg"
                 withBorder
               >
                 <Stack gap="md">

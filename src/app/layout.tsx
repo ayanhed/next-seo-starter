@@ -3,7 +3,7 @@ import "@mantine/notifications/styles.css";
 import { appConfig, getCanonicalUrl } from "@/config/app";
 import JsonLd from "@/components/JsonLd";
 import { getBaseSchemas } from "@/lib/jsonld";
-import { ColorSchemeScript } from "@mantine/core";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import Providers from "./providers";
@@ -84,14 +84,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      style={{ scrollBehavior: "smooth" }}
-      suppressHydrationWarning
+      className={`${geistMono.variable} ${inter.variable}`}
+      {...mantineHtmlProps}
     >
       <head>
         <JsonLd data={getBaseSchemas()} />
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
-      <body className={`${geistMono.variable} ${inter.variable}`}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

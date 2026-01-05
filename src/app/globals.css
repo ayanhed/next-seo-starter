@@ -1,22 +1,38 @@
+/**
+ * Global styles that complement Mantine's styling system.
+ * Mantine handles most styling via CSS variables and the theme config.
+ * Keep this file minimal - use Mantine's theme for consistency.
+ */
+
+/* Let Mantine handle color scheme via data-mantine-color-scheme attribute */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 }
 
+/* Reset box-sizing for all elements */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Body uses Mantine CSS variables for theme-aware colors */
 body {
   margin: 0;
   background-color: var(--mantine-color-body);
   color: var(--mantine-color-text);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--mantine-font-family);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Default link styling - Mantine's Anchor component handles most cases */
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
 }
