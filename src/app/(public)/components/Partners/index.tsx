@@ -1,47 +1,33 @@
 "use client";
 
-import { Container, Text, Group, Box } from "@mantine/core";
-import Image from "next/image";
-import classes from "./style.module.css";
+import { Container, Text, Group, Box, Paper } from "@mantine/core";
 
 // Placeholder for partner logos - replace with actual logos
-const partners = [
-  { name: "Company 1", logo: "/logo.png" },
-  { name: "Company 2", logo: "/logo.png" },
-  { name: "Company 3", logo: "/logo.png" },
-  { name: "Company 4", logo: "/logo.png" },
-  { name: "Company 5", logo: "/logo.png" },
-  { name: "Company 6", logo: "/logo.png" },
-  { name: "Company 7", logo: "/logo.png" },
-  { name: "Company 8", logo: "/logo.png" },
-];
-
 export default function Partners() {
+  const partners = [
+    "Next.js 16",
+    "React 19",
+    "Mantine v8",
+    "Better Auth",
+    "PostgreSQL",
+    "Prisma v7",
+    "TypeScript",
+    "Zod v4",
+    "Serwist",
+    "PostHog",
+  ];
+
   return (
-    <Box id="services" className={classes.wrapper}>
+    <Box id="services">
       <Container size="xl" py={{ base: 40, md: 60 }}>
         <Text ta="center" fw={600} size="lg" mb="xl" c="dimmed">
-          Trusted by employees at:
+          Our tech stack includes:
         </Text>
-        <Group justify="center" gap="xl" wrap="wrap">
-          {partners.map((partner, index) => (
-            <Box
-              key={index}
-              className={classes.logoWrapper}
-              style={{
-                opacity: 0.6,
-                filter: "grayscale(100%)",
-                transition: "all 0.3s ease",
-              }}
-            >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                width={120}
-                height={40}
-                className={classes.logo}
-              />
-            </Box>
+        <Group justify="center" gap="sm" wrap="wrap">
+          {[...Array(10)].fill(0).map((_, index) => (
+            <Paper key={index} p="md" withBorder>
+              <Text size="sm">{partners[index]}</Text>
+            </Paper>
           ))}
         </Group>
       </Container>

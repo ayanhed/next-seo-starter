@@ -13,7 +13,7 @@ import "../../instrumentation-client";
  */
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <MantineProvider theme={theme} defaultColorScheme="auto">
+    <MantineProvider theme={theme} defaultColorScheme="light">
       <Notifications position="top-right" />
       {children}
     </MantineProvider>
