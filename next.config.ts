@@ -9,6 +9,7 @@ const withSerwist = withSerwistInit({
 });
 
 const nextConfig: NextConfig = {
+  turbopack: {},
   pageExtensions: ["js", "jsx", "ts", "tsx"],
   async rewrites() {
     return [
