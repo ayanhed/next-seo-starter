@@ -40,8 +40,8 @@ export const appConfig: AppConfig = {
       "typescript",
     ],
     baseUrl: envSiteUrl || "https://next-seo-starter.vercel.app",
-    locale: "en-US",
-    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "Next SEO Starter Team" }],
+    locale: "en-UK",
+    authors: [{ name: process.env.NEXT_PUBLIC_APP_AUTHOR || "Ayan Hedayati" }],
     categories: ["Software Development", "Web Applications", "SaaS"],
   },
   branding: {
