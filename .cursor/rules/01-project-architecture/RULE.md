@@ -1,5 +1,5 @@
 ---
-description: "Next.js 15 App Router project structure, route groups, and file organization conventions"
+description: "Next.js 16 App Router project structure, route groups, and file organization conventions"
 alwaysApply: true
 ---
 
@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Next.js App Router Structure
 
-This project uses **Next.js 15 with the App Router** (`src/app/` directory).
+This project uses **Next.js 16 with the App Router** (`src/app/` directory) and **React 19**.
 
 ### Route Groups
 
@@ -26,6 +26,7 @@ This project uses **Next.js 15 with the App Router** (`src/app/` directory).
 src/
 ├── app/              # Next.js App Router
 │   ├── (public)/     # Public route group
+│   │   └── components/ # Page-specific components for public routes
 │   ├── (main)/       # Protected route group
 │   ├── api/          # API routes
 │   ├── layout.tsx    # Root layout
@@ -38,7 +39,8 @@ src/
 │   ├── auth.ts       # Better Auth server instance
 │   ├── auth-client.ts # Better Auth client instance
 │   ├── prisma.ts     # Prisma client
-│   └── db.ts         # Database utilities
+│   ├── db.ts         # Database utilities
+│   └── jsonld.ts     # Structured data helpers
 └── hooks/            # Custom React hooks
 ```
 
@@ -72,12 +74,18 @@ src/app/(public)/
 Place reusable components in `src/components/`:
 
 ```typescript
-// Example: src/components/ThemeToggle.tsx
+// Example: src/components/ThemeToggle/ThemeToggle.tsx
 "use client";
 
 import { ActionIcon } from "@mantine/core";
 // ... component code
 ```
+
+### UI Primitives vs Custom Components
+
+- **Do NOT** create new primitives in `@/components/ui` - use Mantine components directly
+- **Do** create custom components in their parent folder or `src/components/`
+- **Always** use Mantine primitives (Button, Card, Text, etc.) where possible
 
 ## Client vs Server Components
 
@@ -86,6 +94,7 @@ import { ActionIcon } from "@mantine/core";
   - Event handlers (`onClick`, `onChange`)
   - Browser APIs (`window`, `localStorage`)
   - Custom hooks that use client-side features
+  - Mantine hooks (`useMantineColorScheme`, etc.)
 - **Add `"use client"` directive** at the top when needed
 
 - **Prefer server components** for:
@@ -129,3 +138,18 @@ import { auth } from "@/lib/auth";
 ```
 
 Never use relative imports for files outside the current directory.
+
+## Tech Stack Summary
+
+| Category   | Technology                  |
+| ---------- | --------------------------- |
+| Framework  | Next.js 16 (App Router)     |
+| React      | React 19                    |
+| UI Library | Mantine v8                  |
+| Styling    | CSS Modules + Mantine props |
+| Forms      | React Hook Form + Zod v4    |
+| Auth       | Better Auth v1.3+           |
+| Database   | PostgreSQL + Prisma v7      |
+| Icons      | lucide-react                |
+| Analytics  | PostHog (optional)          |
+| PWA        | Serwist                     |

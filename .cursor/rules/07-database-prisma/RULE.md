@@ -1,5 +1,5 @@
 ---
-description: "Prisma ORM patterns, database schema conventions, and query best practices"
+description: "Prisma v7 ORM patterns, database schema conventions, and query best practices"
 alwaysApply: true
 ---
 
@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Prisma Setup
 
-This project uses **Prisma** as the ORM with **PostgreSQL**.
+This project uses **Prisma v7** as the ORM with **PostgreSQL**.
 
 ### Prisma Schema Location
 
@@ -46,10 +46,17 @@ const prisma = new PrismaClient();
 
 ## Schema Conventions
 
-### Model Naming
+### Current Schema (Better Auth)
 
 ```prisma
-// PascalCase for model names
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
 model User {
   id            String    @id
   name          String
@@ -58,16 +65,60 @@ model User {
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
+  isAnonymous   Boolean?
+  sessions      Session[]
+  accounts      Account[]
 
-  @@map("user")  // snake_case for table names
+  @@unique([email])
+  @@map("user")
 }
 
 model Session {
-  id String @id
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@unique([token])
   @@map("session")
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+  @@index([userId])
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+  @@index([identifier])
 }
 ```
 
@@ -78,25 +129,7 @@ model Session {
 - **Use `?` for optional fields**: `image String?`
 - **Use `@default()` for defaults**: `@default(now())`, `@default(true)`
 - **Use `@updatedAt` for auto-updated timestamps**: `updatedAt DateTime @updatedAt`
-
-### ID Strategy
-
-```prisma
-// String IDs with cuid()
-model User {
-  id String @id @default(cuid())
-}
-
-// Auto-increment for ordered data
-model Post {
-  id Int @id @default(autoincrement())
-}
-
-// UUID for distributed systems
-model Session {
-  id String @id @default(uuid())
-}
-```
+- **Use `@@map()` for table names**: Snake_case table names
 
 ### Relationships
 
@@ -113,17 +146,6 @@ model Post {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
-// Many-to-Many
-model Post {
-  id         String       @id
-  categories Category[]   @relation("PostToCategory")
-}
-
-model Category {
-  id    String @id
-  posts Post[] @relation("PostToCategory")
-}
 ```
 
 ### Indexes and Constraints
@@ -131,34 +153,19 @@ model Category {
 ```prisma
 model User {
   id    String @id
-  email String @unique
+  email String
 
+  @@unique([email])
   @@index([email])
-  @@index([createdAt])
 }
 
-model Post {
-  id        String   @id
-  userId    String
-  publishedAt DateTime?
+model Session {
+  id     String @id
+  userId String
+  token  String
 
-  @@index([userId, publishedAt])
-  @@unique([userId, slug])
-}
-```
-
-### Enums
-
-```prisma
-enum UserRole {
-  USER
-  ADMIN
-  MODERATOR
-}
-
-model User {
-  id   String   @id
-  role UserRole @default(USER)
+  @@unique([token])
+  @@index([userId])
 }
 ```
 
@@ -170,29 +177,27 @@ model User {
 // Create single record
 const user = await prisma.user.create({
   data: {
+    id: generateId(),
     email: "user@example.com",
     name: "John Doe",
+    emailVerified: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 });
 
 // Create with relations
-const post = await prisma.post.create({
+const session = await prisma.session.create({
   data: {
-    title: "Hello World",
-    content: "Post content",
+    id: generateId(),
+    token: generateToken(),
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     user: {
       connect: { id: userId },
     },
   },
-});
-
-// Create many
-const users = await prisma.user.createMany({
-  data: [
-    { email: "user1@example.com", name: "User 1" },
-    { email: "user2@example.com", name: "User 2" },
-  ],
-  skipDuplicates: true,
 });
 ```
 
@@ -224,10 +229,10 @@ const users = await prisma.user.findMany({
 const user = await prisma.user.findUnique({
   where: { id: userId },
   include: {
-    posts: true,
     sessions: {
       where: { expiresAt: { gte: new Date() } },
     },
+    accounts: true,
   },
 });
 
@@ -265,8 +270,12 @@ const user = await prisma.user.upsert({
   where: { email: "user@example.com" },
   update: { name: "Updated Name" },
   create: {
+    id: generateId(),
     email: "user@example.com",
     name: "New User",
+    emailVerified: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 });
 ```
@@ -299,16 +308,14 @@ const userCount = await prisma.user.count({
 });
 
 // Aggregate
-const stats = await prisma.post.aggregate({
+const stats = await prisma.session.aggregate({
   _count: { id: true },
-  _avg: { views: true },
-  _sum: { views: true },
   _max: { createdAt: true },
 });
 
 // Group by
-const usersByRole = await prisma.user.groupBy({
-  by: ["role"],
+const usersByAnonymous = await prisma.user.groupBy({
+  by: ["isAnonymous"],
   _count: { id: true },
 });
 ```
@@ -319,44 +326,29 @@ const usersByRole = await prisma.user.groupBy({
 // Sequential operations
 const result = await prisma.$transaction(async (tx) => {
   const user = await tx.user.create({
-    data: { email: "user@example.com", name: "User" },
+    data: {
+      id: generateId(),
+      email: "user@example.com",
+      name: "User",
+      emailVerified: false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
   });
 
   const session = await tx.session.create({
     data: {
+      id: generateId(),
       userId: user.id,
       token: generateToken(),
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
   });
 
   return { user, session };
 });
-
-// Interactive transactions
-const [updatedUser, newPost] = await prisma.$transaction([
-  prisma.user.update({
-    where: { id: userId },
-    data: { postCount: { increment: 1 } },
-  }),
-  prisma.post.create({
-    data: { title: "New Post", userId },
-  }),
-]);
-```
-
-### Raw Queries
-
-```typescript
-// Raw SQL query
-const users = await prisma.$queryRaw`
-  SELECT * FROM "user" WHERE "email" LIKE ${`%${domain}%`}
-`;
-
-// Execute raw SQL
-const result = await prisma.$executeRaw`
-  UPDATE "user" SET "emailVerified" = true WHERE "email" = ${email}
-`;
 ```
 
 ## Error Handling
@@ -368,7 +360,9 @@ import { Prisma } from "@prisma/client";
 
 try {
   const user = await prisma.user.create({
-    data: { email: "user@example.com", name: "User" },
+    data: {
+      /* ... */
+    },
   });
 } catch (error) {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
@@ -432,7 +426,7 @@ npm run db:studio
 ### Production Deployment
 
 ```bash
-# Generate Prisma Client
+# Generate Prisma Client (done in build script)
 prisma generate
 
 # Apply migrations
@@ -486,15 +480,6 @@ model User {
 }
 ```
 
-### Use Connection Pooling
-
-In `.env`:
-
-```bash
-# Connection pooling for serverless
-DATABASE_URL="postgresql://user:password@host:5432/db?pgbouncer=true&connection_limit=1"
-```
-
 ## Type Safety
 
 ### Infer Types from Prisma
@@ -506,8 +491,8 @@ import { Prisma } from "@prisma/client";
 type User = Prisma.UserGetPayload<{}>;
 
 // With relations
-type UserWithPosts = Prisma.UserGetPayload<{
-  include: { posts: true };
+type UserWithSessions = Prisma.UserGetPayload<{
+  include: { sessions: true };
 }>;
 
 // With selected fields
@@ -531,6 +516,6 @@ type UserUpdateInput = Prisma.UserUpdateInput;
 5. **Validate input** with Zod before database operations
 6. **Use select/include** to optimize queries
 7. **Implement pagination** for large result sets
-8. **Close connections** in serverless functions (if needed)
-9. **Use migrations** - Never modify the database manually
-10. **Test with seed data** - Create `prisma/seed.ts` for development
+8. **Use migrations** - Never modify the database manually
+9. **Test with seed data** - Create `prisma/seed.ts` for development
+10. **Better Auth manages auth tables** - Don't modify User/Session/Account manually

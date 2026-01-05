@@ -42,9 +42,11 @@ Located in `src/lib/auth-client.ts`:
 
 ```typescript
 import { createAuthClient } from "better-auth/react";
+import { nextCookies } from "better-auth/next-js";
+import { anonymousClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
+  plugins: [nextCookies(), anonymousClient()],
 });
 ```
 
@@ -222,13 +224,9 @@ export default async function DashboardPage() {
 
 import { authClient } from "@/lib/auth-client";
 
-export function useSession() {
-  return authClient.useSession();
-}
-
 // Usage in component
 export function UserProfile() {
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -343,7 +341,7 @@ const session = await auth.api.getSession({ headers: await headers() });
 const user = session?.user;
 
 // Client component
-const { data: session } = useSession();
+const { data: session } = authClient.useSession();
 const user = session?.user;
 
 // Available user properties
@@ -415,34 +413,12 @@ Located in `src/app/(main)/`
 Check if user is anonymous:
 
 ```typescript
-const { data: session } = useSession();
+const { data: session } = authClient.useSession();
 
-if (session?.user?.email === null) {
+if (session?.user?.isAnonymous) {
   // Anonymous user
   return <Banner>Sign up to save your progress</Banner>;
 }
-```
-
-## Testing Authentication
-
-### Mock Session for Tests
-
-```typescript
-// Mock auth client
-jest.mock("@/lib/auth-client", () => ({
-  authClient: {
-    useSession: () => ({
-      data: {
-        user: {
-          id: "test-user-id",
-          name: "Test User",
-          email: "test@example.com",
-        },
-      },
-      isPending: false,
-    }),
-  },
-}));
 ```
 
 ## Common Patterns
@@ -452,12 +428,12 @@ jest.mock("@/lib/auth-client", () => ({
 ```typescript
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { data: session, isPending } = useSession();
+  const { data: session, isPending } = authClient.useSession();
   const router = useRouter();
 
   useEffect(() => {
@@ -482,7 +458,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 ```typescript
 export function Navigation() {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   return (
     <nav>

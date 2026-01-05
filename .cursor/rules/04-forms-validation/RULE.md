@@ -1,5 +1,5 @@
 ---
-description: "React Hook Form with Zod validation patterns, form handling, and error display"
+description: "React Hook Form with Zod v4 validation patterns, form handling, and error display"
 alwaysApply: true
 ---
 
@@ -10,7 +10,7 @@ alwaysApply: true
 This project uses:
 
 - **React Hook Form** for form state management
-- **Zod** for schema validation
+- **Zod v4** for schema validation
 - **@hookform/resolvers/zod** for integration
 - **Mantine form components** for UI
 
@@ -26,7 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { TextInput, PasswordInput, Button, Stack, Alert } from "@mantine/core";
 
-// 1. Define Zod schema
+// 1. Define Zod v4 schema
 const formSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
@@ -93,7 +93,9 @@ export default function MyForm() {
 }
 ```
 
-## Zod Schema Patterns
+## Zod v4 Schema Patterns
+
+**Note:** Zod v4 uses `z.email()` and `z.url()` directly instead of `z.string().email()`.
 
 ### Common Validation Rules
 
@@ -104,7 +106,7 @@ const schema = z.object({
   // Required string
   name: z.string().min(1, "Name is required"),
 
-  // Email validation
+  // Email validation (Zod v4 syntax)
   email: z.email("Invalid email address"),
 
   // Password with minimum length
@@ -123,11 +125,11 @@ const schema = z.object({
 
   // Enum
   role: z.enum(["user", "admin"], {
-    errorMap: () => ({ message: "Invalid role" }),
+    message: "Invalid role",
   }),
 
-  // URL validation
-  website: z.string().url("Invalid URL"),
+  // URL validation (Zod v4 syntax)
+  website: z.url("Invalid URL"),
 
   // Custom validation
   username: z
@@ -248,7 +250,7 @@ const {
   formState: { isSubmitting },
 } = useForm<FormData>();
 
-// Or use local state
+// Or use local state for more control
 const [isLoading, setIsLoading] = useState(false);
 
 const onSubmit = async (data: FormData) => {
@@ -380,6 +382,16 @@ const onSubmit = async (data: FormData) => {
 </Stack>
 ```
 
+### Form in Card
+
+```typescript
+<Card shadow="sm" padding="xl" radius="md" withBorder>
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <Stack gap="md">{/* Form fields */}</Stack>
+  </form>
+</Card>
+```
+
 ## Best Practices
 
 1. **Always validate on both client and server** - Client validation is UX, server validation is security
@@ -390,3 +402,4 @@ const onSubmit = async (data: FormData) => {
 6. **Disable submit while loading** - Prevent double submissions
 7. **Use required prop** - Shows asterisk on required fields
 8. **Add descriptions** - Help users understand what's expected
+9. **Use Zod v4 syntax** - `z.email()` instead of `z.string().email()`

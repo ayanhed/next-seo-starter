@@ -248,7 +248,7 @@ Use Zod to generate TypeScript types:
 ```typescript
 import { z } from "zod";
 
-// Define schema
+// Define schema (Zod v4 syntax)
 const userSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -308,7 +308,7 @@ export const viewport: Viewport = {
   themeColor: "#000000",
 };
 
-// Page props
+// Page props (Next.js 15+ async params)
 interface PageProps {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

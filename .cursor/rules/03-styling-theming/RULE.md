@@ -5,6 +5,16 @@ alwaysApply: true
 
 # Styling and Theming
 
+## Styling Philosophy
+
+This project uses **Mantine's styling system** as the primary styling approach:
+
+1. **Mantine props first** - Use built-in component props for styling
+2. **CSS Modules second** - For custom styles not covered by Mantine
+3. **Minimal global CSS** - Only for base resets and CSS variables
+
+**Always prefer Tailwind/Mantine semantic variables over custom CSS.**
+
 ## CSS Modules
 
 Use CSS Modules for component-specific styles.
@@ -46,20 +56,40 @@ export default function Component() {
 Theme is centralized in `src/config/theme.ts`:
 
 ```typescript
-import { createTheme } from "@mantine/core";
+import { createTheme, Button, Card } from "@mantine/core";
 
 export const theme = createTheme({
   primaryColor: "primary",
-  // ... other theme config
+  primaryShade: { light: 5, dark: 4 },
+  colors: {
+    primary: primaryColor,
+    secondary: secondaryColor,
+  },
+  autoContrast: true,
+  luminanceThreshold: 0.3,
+  // ... component defaults
 });
 ```
 
-### Importing Theme
+### Component Defaults
+
+The theme extends component defaults using Mantine v8 patterns:
 
 ```typescript
-import { theme } from "@/config/theme";
-
-<MantineProvider theme={theme}>
+components: {
+  Button: Button.extend({
+    defaultProps: {
+      radius: "md",
+    },
+  }),
+  Card: Card.extend({
+    defaultProps: {
+      radius: "md",
+      shadow: "sm",
+    },
+  }),
+  // ... etc
+}
 ```
 
 ### Using Theme Colors
@@ -85,7 +115,11 @@ Mantine provides semantic color props:
 ```typescript
 "use client";
 
-import { useMantineColorScheme, useComputedColorScheme } from "@mantine/core";
+import {
+  useMantineColorScheme,
+  useComputedColorScheme,
+  ActionIcon,
+} from "@mantine/core";
 
 export function ThemeToggle() {
   const { setColorScheme } = useMantineColorScheme();
@@ -106,7 +140,7 @@ export function ThemeToggle() {
 }
 ```
 
-### CSS Module Color Scheme
+### CSS Module Color Scheme Selectors
 
 Use Mantine's CSS variables in CSS Modules:
 
@@ -116,6 +150,7 @@ Use Mantine's CSS variables in CSS Modules:
   color: var(--mantine-color-text);
 }
 
+/* Show/hide based on color scheme */
 .light {
   display: var(--mantine-color-scheme-light);
 }
@@ -128,11 +163,11 @@ Use Mantine's CSS variables in CSS Modules:
 ### Root Layout Setup
 
 ```typescript
-import { ColorSchemeScript } from "@mantine/core";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
 export default function RootLayout({ children }) {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript defaultColorScheme="auto" />
       </head>
@@ -144,18 +179,28 @@ export default function RootLayout({ children }) {
 
 ## Global Styles
 
-Global styles live in `src/app/globals.css`:
+Global styles in `src/app/globals.css` are minimal:
 
 ```css
 :root {
-  --font-geist-mono: "Geist Mono", monospace;
-  --font-inter: "Inter", sans-serif;
+  color-scheme: light dark;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  padding: 0;
+}
+
+body {
   margin: 0;
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+  font-family: var(--mantine-font-family);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 ```
 
@@ -163,13 +208,13 @@ Global styles live in `src/app/globals.css`:
 
 ### Breakpoints
 
-Mantine provides default breakpoints:
+Mantine breakpoints (defined in theme):
 
-- `xs`: 576px
-- `sm`: 768px
-- `md`: 992px
-- `lg`: 1200px
-- `xl`: 1408px
+- `xs`: 36em (576px)
+- `sm`: 48em (768px)
+- `md`: 62em (992px)
+- `lg`: 75em (1200px)
+- `xl`: 88em (1408px)
 
 ### Responsive Props
 
@@ -226,8 +271,8 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// In body tag
-<body className={`${geistMono.variable} ${inter.variable}`}>
+// In html tag
+<html className={`${geistMono.variable} ${inter.variable}`}>
 ```
 
 ### Text Components
@@ -306,3 +351,4 @@ Keep animations subtle and performant:
 6. **Use Mantine's spacing scale** for consistency
 7. **Avoid inline styles** unless absolutely necessary
 8. **Keep animations performant** - use `transform` and `opacity`
+9. **Use CSS variables from Mantine** - `var(--mantine-color-*)` pattern

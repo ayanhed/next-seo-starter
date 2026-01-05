@@ -14,7 +14,7 @@ Use this structure for all components:
 ```typescript
 "use client"; // Only if needed
 
-import { ComponentProps } from "@mantine/core";
+import { Box, Stack, Text } from "@mantine/core";
 import classes from "./style.module.css";
 
 interface ComponentNameProps {
@@ -59,6 +59,10 @@ import {
   Card,
   Grid,
   Box,
+  Badge,
+  Anchor,
+  Alert,
+  Divider,
 } from "@mantine/core";
 ```
 
@@ -105,7 +109,7 @@ Use responsive object syntax for mobile-first design:
 #### Button Variants
 
 ```typescript
-// Primary action
+// Primary action (gradient using theme default)
 <Button variant="gradient" rightSection={<Icon />}>
   Primary Action
 </Button>
@@ -135,6 +139,7 @@ import { ArrowRight, Users, Check } from "lucide-react";
 
 - Inline text: `size={16}`
 - Buttons: `size={18}`
+- Badges: `size={14}`
 - Large UI elements: `size={20}` or `size={24}`
 
 ## Client Components
@@ -157,7 +162,7 @@ const handleClick = () => {
 };
 ```
 
-3. **Hooks**
+3. **Router hooks**
 
 ```typescript
 "use client";
@@ -219,7 +224,7 @@ Use Next.js Link for internal navigation:
 
 ```typescript
 import Link from "next/link";
-import { Anchor } from "@mantine/core";
+import { Anchor, Button } from "@mantine/core";
 
 // Mantine Anchor with Next.js Link
 <Anchor component={Link} href="/register">
@@ -268,6 +273,32 @@ export default function Hero() {
     </Container>
   );
 }
+```
+
+## Card Pattern
+
+Use Mantine Card with consistent styling:
+
+```typescript
+<Card shadow="sm" padding="xl" radius="md" withBorder>
+  <Stack gap="md">
+    {/* Card content */}
+  </Stack>
+</Card>
+```
+
+## Notifications
+
+Use Mantine notifications for user feedback:
+
+```typescript
+import { notifications } from "@mantine/notifications";
+
+notifications.show({
+  title: "Success",
+  message: "Action completed successfully",
+  color: "green",
+});
 ```
 
 ## Accessibility
