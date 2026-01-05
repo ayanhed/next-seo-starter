@@ -83,14 +83,14 @@ export default function RegisterForm() {
   return (
     <Container size="xs" py={80}>
       <Stack gap="lg">
-        <Stack gap="xs" align="center">
+        <Stack gap="xs" align="center" mt="xl">
           <Title order={1}>Create an account</Title>
           <Text c="dimmed" size="sm">
             Get started with your free account
           </Text>
         </Stack>
 
-        <Card shadow="sm" padding="xl" radius="md" withBorder>
+        <Card shadow="sm" padding="xl" my="xl" radius="md" withBorder>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack gap="md">
               {error && (

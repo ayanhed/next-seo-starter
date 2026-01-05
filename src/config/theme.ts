@@ -175,6 +175,11 @@ export const theme = createTheme({
       },
     }),
     Input: Input.extend({
+      styles: {
+        input: {
+          backgroundColor: "var(--mantine-color-gray-0)",
+        },
+      },
       defaultProps: {
         radius: "lg",
       },
